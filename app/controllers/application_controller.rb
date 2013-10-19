@@ -16,4 +16,8 @@ class ApplicationController < ActionController::Base
     I18n.locale = params[:locale] || I18n.default_locale
     self.default_url_options[:locale] = I18n.locale
   end
+
+  def faye_client
+    request.env['faye.client']
+  end
 end

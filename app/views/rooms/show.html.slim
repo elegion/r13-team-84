@@ -1,3 +1,5 @@
+span.js-room-id data-room-id=@room.id
+
 h1 = @room.name
 
 h2 = t('.users')
@@ -6,25 +8,5 @@ h2 = t('.users')
 
 .clear
 
-h2 = t('.questions_and_answers')
-
-- @room.room_questions.each do |room_question|
-  article
-    h3 = room_question.question.text
-    p
-      strong Answers:
-      = room_question.question.answers.pluck(:value).join(', ')
-
-    - room_question.suggested_answers.each do |suggested_answer|
-      p
-        strong #{suggested_answer.user.name}:
-        = suggested_answer.value
-
-    - if room_question.winner_id?
-      p
-        strong Winner:
-        = room_question.winner.name
-
-= form_for [ @room.last_room_question, SuggestedAnswer.new ] do |f|
-  = f.text_area :value
-  = f.submit
+.js-room-questions
+  = render 'room_questions', room: @room
