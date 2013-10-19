@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131019085257) do
+ActiveRecord::Schema.define(version: 20131019091515) do
 
   create_table "answers", force: true do |t|
     t.string   "value",            null: false
@@ -23,6 +23,18 @@ ActiveRecord::Schema.define(version: 20131019085257) do
 
   add_index "answers", ["question_id", "normalized_value"], name: "index_answers_on_question_id_and_normalized_value", unique: true
   add_index "answers", ["question_id", "value"], name: "index_answers_on_question_id_and_value", unique: true
+
+  create_table "authentications", force: true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.text     "auth"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "authentications", ["provider", "uid"], name: "index_authentications_on_provider_and_uid", unique: true
+  add_index "authentications", ["user_id", "provider"], name: "index_authentications_on_user_id_and_provider", unique: true
 
   create_table "question_categories", force: true do |t|
     t.string   "name",       null: false
@@ -61,5 +73,11 @@ ActiveRecord::Schema.define(version: 20131019085257) do
   end
 
   add_index "rooms", ["name"], name: "index_rooms_on_name", unique: true
+
+  create_table "users", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
