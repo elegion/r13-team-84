@@ -8,6 +8,10 @@ Quiz::Application.routes.draw do
     resources :rooms, only: [ :show ] do
       post :join, on: :collection
     end
+
+    resources :room_questions, only: [ ] do 
+      resources :suggested_answers, only: [ :create ]
+    end
   end
 
   scope :auth do
