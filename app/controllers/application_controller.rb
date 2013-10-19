@@ -7,8 +7,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def current_user
-    return @current_user if @current_user
-    @current_user ||= User.where(session[:user_id]).first if session[:user_id]
+    @current_user ||= User.where(id: session[:user_id]).first if session[:user_id]
     session[:user_id] = (@current_user = User.guest).id unless @current_user
     @current_user
   end
