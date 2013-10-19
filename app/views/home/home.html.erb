@@ -1,0 +1,9 @@
+<% if current_user %>
+  Signed in as <strong><%= current_user.name %></strong>.
+  <%= link_to "Sign out", signout_path, method: :post %>
+<% else %>
+  Sign in:
+  <%= link_to "Facebook", "/auth/facebook" %>
+  <%= link_to "Twitter", "/auth/twitter" %>
+  <%= link_to "VK", "/auth/vkontakte" %>
+<% end %>
