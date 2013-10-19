@@ -43,12 +43,21 @@ end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
+# Use thin as the app server
+gem 'thin'
+
+group :development do
+  # Use Capistrano for deployment
+  gem 'capistrano', '~> 2', group: :development
+end
+
+group :production do
+  gem 'mysql2' # If using mysql in development, this can be outside the production group.
+  gem 'therubyracer'
+end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'thin'
 gem 'faye'
 gem 'slim-rails'
