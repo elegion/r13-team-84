@@ -1,27 +1,27 @@
 span.js-room-id data-room-id=@room.id
 
-h1 = @room.name
+.jumbotron
 
 .col-xs-12.col-sm-9
   .well.room-chat.js-room-chat
     = render 'room_questions', room: @room
   .well
-    = form_for [ @room.last_room_question, SuggestedAnswer.new ], remote: true, html: {class: 'js-room-message-form'} do |f|
-      = f.text_field :value, autofocus: true, class: 'js-room-message-form-message'
-      = f.submit
+    = form_for [ @room.last_room_question, SuggestedAnswer.new ], remote: true, html: {class: 'js-room-message-form form-inline'} do |f|
+      .form-group.room-input
+        = f.text_field :value, autofocus: true, class: 'js-room-message-form-message form-control'
+      .form-group
+        = f.submit t('.submit'), class: "btn btn-success"
 
 
 .col-xs-6.col-sm-3.sidebar-offcanvas
-  .well
-    h2
-      = t('.users')
-      = "(#{@room.users.count})"
-    ul.js-room-users
-      - @room.users.each do |user|
-        li
-          = link_to user.name, user, class: 'js-user-link', data: { id: user.id }
-
-    = button_to leave_rooms_path do
-      = t('.leave')
-
-.clear
+  .panel.panel-success
+    .panel-heading
+      .pull-right
+        = button_to leave_rooms_path, class: 'btn' do
+          = t('.leave')
+      h2 = @room.name
+    .panel-body
+      ul.list-unstyled.js-room-users
+        - @room.users.each do |user|
+          li data-id= user.id
+            = link_to user.name, user, class: 'js-user-link'

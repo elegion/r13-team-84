@@ -9,6 +9,9 @@ en:
 
   rooms:
     prefix: Room
+    show:
+      submit: Submit
+      leave: Leave
 
   users:
     guest_prefix: guest

@@ -38,18 +38,19 @@ class Users
 
   _subscribeLeave: =>
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/users/leave", (data) =>
-      @container.find("a[data-id=\"#{data.user.id}\"]").closest('li').remove()
+      @container.find("li[data-id=\"#{data.user.id}\"]").remove()
 
   _renderUser: (data) ->
     $('<li>',
       'html': $('<a>'
         'class': 'js-user-link',
         'href': data.user_link,
-        'text': data.user.name,
-        'data': {
-          'id': data.user.id
-        }
-      )
+        'text': data.user.name
+      ),
+      'data': {
+        'id': data.user.id,
+        'name': data.user.name
+      }
     )
 
 

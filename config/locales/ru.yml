@@ -9,6 +9,9 @@ ru:
 
   rooms:
     prefix: Комната
+    show:
+      submit: Отправить
+      leave: Выйти
 
   users:
     guest_prefix: гость
