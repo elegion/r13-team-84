@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   def self.guest
     create(
-      name: "#{I18n.t('users.guest_prefix')} #{rand 1e7}",
+      name: "#{I18n.t('users.guest_prefix')}#{rand 1e5}",
       guest: true
     )
   end
