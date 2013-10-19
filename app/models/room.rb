@@ -8,6 +8,8 @@ class Room < ActiveRecord::Base
   has_many :questions, through: :room_questions
   has_many :users
 
+  after_create :next_room_question
+
   def last_room_question
     room_questions.order(:created_at).last
   end

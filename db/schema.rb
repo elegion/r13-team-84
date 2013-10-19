@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(version: 20131019131849) do
 
   add_index "answers", ["question_id", "normalized_value"], name: "index_answers_on_question_id_and_normalized_value", unique: true
   add_index "answers", ["question_id", "value"], name: "index_answers_on_question_id_and_value", unique: true
-  add_index "answers", ["question_id"], name: "index_answers_on_question_id"
 
   create_table "authentications", force: true do |t|
     t.integer  "user_id"
@@ -52,7 +51,6 @@ ActiveRecord::Schema.define(version: 20131019131849) do
     t.datetime "updated_at"
   end
 
-  add_index "questions", ["question_category_id"], name: "index_questions_on_question_category_id"
   add_index "questions", ["text"], name: "index_questions_on_text", unique: true
 
   create_table "room_questions", force: true do |t|
@@ -78,6 +76,17 @@ ActiveRecord::Schema.define(version: 20131019131849) do
 
   add_index "rooms", ["name"], name: "index_rooms_on_name", unique: true
   add_index "rooms", ["users_count"], name: "index_rooms_on_users_count"
+
+  create_table "suggested_answers", force: true do |t|
+    t.string   "value"
+    t.integer  "user_id"
+    t.integer  "room_question_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "suggested_answers", ["room_question_id"], name: "index_suggested_answers_on_room_question_id"
+  add_index "suggested_answers", ["user_id"], name: "index_suggested_answers_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "name"
