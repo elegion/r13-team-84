@@ -1,4 +1,10 @@
-QZ.room = {}
+QZ.room =
+  init: ->
+    $form = $('.js-room-message-form')
+    $form.on 'ajax:beforeSend', (evt, xhr, settings) ->
+      $input = $form.find('.js-room-message-form-message')
+      return false unless $input.val().length
+      $input.val('')
 
 QZ.room.chat =
   init: ->
@@ -19,6 +25,7 @@ QZ.room.chat =
 
 $ ->
   if room_id = $('.js-room-id').data('roomId')
+    QZ.room.init()
     window.FAYE_CLIENT.subscribe "/rooms/#{room_id}", (data) ->
       if (data.event == 'message')
         QZ.room.chat.addUserMessage(data.user, data.message, '')

@@ -6,8 +6,8 @@ h1 = @room.name
   .well.room-chat.js-room-chat
     = render 'room_questions', room: @room
   .well
-    = form_for [ @room.last_room_question, SuggestedAnswer.new ], remote: true do |f|
-      = f.text_field :value
+    = form_for [ @room.last_room_question, SuggestedAnswer.new ], remote: true, html: {class: 'js-room-message-form'} do |f|
+      = f.text_field :value, autofocus: true, class: 'js-room-message-form-message'
       = f.submit
 
 
