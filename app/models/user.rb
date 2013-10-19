@@ -19,4 +19,12 @@ class User < ActiveRecord::Base
     !!guest
   end
 
+  def join(room)
+    room.users << self
+  end
+
+  def leave
+    room.users.delete self
+  end
+
 end

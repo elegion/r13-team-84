@@ -6,9 +6,14 @@ class RoomsController < ApplicationController
   end
 
   def join
-    room = Room.first_not_full
-    room.join current_user
-    redirect_to room
+    @room = Room.first_not_full
+    current_user.join @room
+    redirect_to @room
+  end
+
+  def leave
+    current_user.leave
+    redirect_to root_path
   end
 
 end

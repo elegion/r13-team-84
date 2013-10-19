@@ -39,10 +39,6 @@ class Room < ActiveRecord::Base
     )
   end
 
-  def join(user)
-    users << user
-  end
-
 protected
 
   def next_question

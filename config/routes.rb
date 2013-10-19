@@ -7,6 +7,7 @@ Quiz::Application.routes.draw do
 
     resources :rooms, only: [ :show ] do
       post :join, on: :collection
+      post :leave, on: :collection
     end
 
     resources :room_questions, only: [ ] do
