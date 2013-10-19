@@ -1,5 +1,3 @@
-h2 = t('.questions_and_answers')
-
 - room.room_questions.each do |room_question|
   article
     h3 = room_question.question.text
@@ -16,7 +14,3 @@ h2 = t('.questions_and_answers')
       p
         strong Winner: 
         = room_question.winner.name
-
-= form_for [ room.last_room_question, SuggestedAnswer.new ], remote: true do |f|
-  = f.text_area :value
-  = f.submit
