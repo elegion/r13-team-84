@@ -7,11 +7,12 @@ h1= Quiz
   p
     = link_to t(".sign_out"), signout_path, method: :post
 - else
-  p= t(".sign_in")
-  ul
-    li= link_to "Facebook", signin_path(:facebook)
-    li= link_to "Twitter", signin_path(:twitter)
-    li= link_to "VK", signin_path(:vkontakte)
+  .auth_box
+    p= t(".sign_in")
+    ul.login_providers
+      li= link_to "", signin_path(:facebook), class: 'icon icon-facebook'
+      li= link_to "", signin_path(:twitter), class: 'icon icon-twitter'
+      li= link_to "", signin_path(:vkontakte), class: 'icon icon-vk'
 
-= button_to join_rooms_path do
+= button_to join_rooms_path, class: 'play_button' do
   = t('home.play')
