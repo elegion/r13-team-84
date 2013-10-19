@@ -1,6 +1,10 @@
 ru:
   home:
     play: "Играть"
+    index:
+      welcome: Привет,
+      sign_in: Войти
+      sign_out: Выйти
 
   sessions:
     signout:

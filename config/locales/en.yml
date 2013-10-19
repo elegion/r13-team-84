@@ -1,6 +1,10 @@
 en:
   home:
     play: "Play"
+    index:
+      welcome: Welcome,
+      sign_in: Sign in
+      sign_out: Sign out
 
   sessions:
     signout:

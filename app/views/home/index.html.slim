@@ -2,10 +2,12 @@ h1= Quiz
 
 - if current_user
   p
-    ' Signed in as <strong>#{current_user.name}</strong>.
-    = link_to "Sign out", signout_path, method: :post
+    ' #{t(".welcome")}
+    strong= current_user.name
+  p
+    = link_to t(".sign_out"), signout_path, method: :post
 - else
-  p Sign in:
+  p= t(".sign_in")
   ul
     li= link_to "Facebook", "/auth/facebook"
     li= link_to "Twitter", "/auth/twitter"
