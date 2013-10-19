@@ -11,15 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131019071715) do
+ActiveRecord::Schema.define(version: 20131019085257) do
 
   create_table "answers", force: true do |t|
-    t.string   "value",       null: false
+    t.string   "value",            null: false
     t.integer  "question_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "normalized_value"
   end
 
+  add_index "answers", ["question_id", "normalized_value"], name: "index_answers_on_question_id_and_normalized_value", unique: true
   add_index "answers", ["question_id", "value"], name: "index_answers_on_question_id_and_value", unique: true
 
   create_table "question_categories", force: true do |t|
