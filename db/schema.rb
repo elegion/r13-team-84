@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131019091515) do
+ActiveRecord::Schema.define(version: 20131019114002) do
 
   create_table "answers", force: true do |t|
     t.string   "value",            null: false
@@ -69,9 +69,10 @@ ActiveRecord::Schema.define(version: 20131019091515) do
   add_index "room_questions", ["winner_id"], name: "index_room_questions_on_winner_id"
 
   create_table "rooms", force: true do |t|
-    t.string   "name",       null: false
+    t.string   "name",        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "users_count"
   end
 
   add_index "rooms", ["name"], name: "index_rooms_on_name", unique: true
@@ -80,6 +81,9 @@ ActiveRecord::Schema.define(version: 20131019091515) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "room_id"
   end
+
+  add_index "users", ["room_id"], name: "index_users_on_room_id"
 
 end

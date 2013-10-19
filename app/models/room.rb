@@ -1,9 +1,12 @@
 class Room < ActiveRecord::Base
 
+  ROOM_SIZE = 5
+
   validates :name, uniqueness: true
 
   has_many :room_questions, dependent: :destroy
   has_many :questions, through: :room_questions
+  has_many :users
 
   def last_room_question
     room_questions.order(:created_at).last
@@ -15,8 +18,20 @@ class Room < ActiveRecord::Base
     end
   end
 
-  def full?
-    self.created_at < 1.minute.ago
+  def self.not_full
+    where("users_count <= ?", ROOM_SIZE)
+  end
+
+  def self.order_by_users_count
+    order('users_count DESC')
+  end
+
+  def self.first_not_full
+    order_by_users_count.not_full.first_or_create(name: "Room #{Room.count + 1}")
+  end
+
+  def join(user)
+    users << user
   end
 
 protected

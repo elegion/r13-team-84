@@ -5,12 +5,9 @@ class RoomsController < ApplicationController
   end
 
   def join
-    if (last_room = Room.last).try(:full?)
-      new_room = Room.create(name: "Room #{Room.count + 1}")
-      redirect_to new_room
-    else
-      redirect_to last_room
-    end
+    room = Room.first_not_full
+    room.join current_user
+    redirect_to room
   end
 
 end
