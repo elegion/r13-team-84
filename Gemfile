@@ -46,3 +46,4 @@ end
 
 gem 'thin'
 gem 'faye'
+gem 'slim-rails'
