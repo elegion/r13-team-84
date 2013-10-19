@@ -2,11 +2,13 @@
 }
 .user-profile-avatar-block {
   float: left;
-  margin: 0 1em 1em 0;
 }
 .user-avatar {
   max-width: 64px;
   max-height: 64px;
+}
+.user-profile-info {
+  margin-left: 80px;
 }
 .user-profile-name {
   font-weight: 700;
