@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131019123436) do
+ActiveRecord::Schema.define(version: 20131019131849) do
 
   create_table "answers", force: true do |t|
     t.string   "value",            null: false
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20131019123436) do
   end
 
   add_index "rooms", ["name"], name: "index_rooms_on_name", unique: true
+  add_index "rooms", ["users_count"], name: "index_rooms_on_users_count"
 
   create_table "users", force: true do |t|
     t.string   "name"
