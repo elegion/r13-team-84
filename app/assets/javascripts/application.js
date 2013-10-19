@@ -14,5 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require facebox
-//= require main.coffee
+//= require main
 //= require_tree .
