@@ -13,7 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require main.coffee
 //= require_tree .
-
-$ ->
-  window.FAYE_CLIENT = new Faye.Client('/faye')
