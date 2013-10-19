@@ -1,7 +1,7 @@
 /.idea
 /.bundle
-/db/*.sqlite3
-/db/*.sqlite3-journal
+/data/*.sqlite3
+/data/*.sqlite3-journal
 /tmp/*
 .ruby-version
 .ruby-gemset
