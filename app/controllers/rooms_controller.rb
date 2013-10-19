@@ -24,7 +24,8 @@ class RoomsController < ApplicationController
     channel = "/rooms/#{@room.id}/users/#{action_name}"
     faye_client.publish(channel, {
       user: current_user,
-      user_link: user_path(current_user)
+      user_link: user_path(current_user),
+      class: view_context.color_class(current_user.id)
     })
   end
 

@@ -48,7 +48,7 @@ class Users
   _renderUser: (data) ->
     $('<li>',
       'html': $('<a>'
-        'class': "js-user-link",
+        'class': "js-user-link #{data.class}",
         'href': data.user_link,
         'text': data.user.name
       ),

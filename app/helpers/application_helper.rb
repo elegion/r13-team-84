@@ -9,4 +9,8 @@ module ApplicationHelper
     image_tag(src, alt: "", title: user.name, class: 'user-avatar')
   end
 
+  def color_class x
+    "nickname-color-#{ x % 5 + 1 }"
+  end
+
 end
