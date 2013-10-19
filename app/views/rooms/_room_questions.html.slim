@@ -17,6 +17,6 @@ h2 = t('.questions_and_answers')
         strong Winner: 
         = room_question.winner.name
 
-= form_for [ room.last_room_question, SuggestedAnswer.new ] do |f|
+= form_for [ room.last_room_question, SuggestedAnswer.new ], remote: true do |f|
   = f.text_area :value
   = f.submit

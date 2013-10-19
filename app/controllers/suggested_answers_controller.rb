@@ -6,7 +6,10 @@ class SuggestedAnswersController < ApplicationController
   def create
     suggested_answer = @room_question.suggested_answers.build(suggested_answer_params)
     suggested_answer.save!
-    redirect_to @room_question.room
+    respond_to do |foramt|
+      foramt.html { redirect_to @room_question.room }
+      foramt.js { head :ok }
+    end
   end
 
 protected
