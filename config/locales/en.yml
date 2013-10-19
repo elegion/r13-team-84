@@ -6,6 +6,9 @@ en:
       sign_in: Sign in
       sign_out: Sign out
 
+  rooms:
+    prefix: Room
+
   sessions:
     signout:
       sign_out: Sign out

@@ -1,1 +1,8 @@
-h1 = t('.room')
+h1 = @room.name
+
+- @room.users.each do |user|
+  = user.name
+
+.clear
+
+textarea

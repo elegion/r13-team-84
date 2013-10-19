@@ -6,6 +6,9 @@ ru:
       sign_in: Войти
       sign_out: Выйти
 
+  rooms:
+    prefix: Комната
+
   sessions:
     signout:
       sign_out: Выйти
