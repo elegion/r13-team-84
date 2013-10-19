@@ -1,7 +1,7 @@
 en:
   home:
     index:
-      description: Popular retro game from IRC chats on the web.
+      description: Popular retro game from IRC chats on the web
       play: Play
     authbox:
       sign_in: Log in via
