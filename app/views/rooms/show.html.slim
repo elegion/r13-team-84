@@ -3,13 +3,8 @@ span.js-room-id data-room-id=@room.id
 h1 = @room.name
 
 .col-xs-12.col-sm-9
-  .well.js-chat
+  .well.js-chat.js-room-questions
     = render 'room_questions', room: @room
-  .well.js-current-question
-    h3 = @room.last_room_question.question.text
-  = form_for [ @room.last_room_question, SuggestedAnswer.new ], remote: true do |f|
-    = f.text_field :value
-    = f.submit
 
 .col-xs-6.col-sm-3.sidebar-offcanvas
   .well

@@ -14,3 +14,6 @@
       p
         strong Winner: 
         = room_question.winner.name
+= form_for [ room.last_room_question, SuggestedAnswer.new ], remote: true do |f|
+  = f.text_field :value
+  = f.submit
