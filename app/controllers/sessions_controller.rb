@@ -3,20 +3,20 @@ class SessionsController < ApplicationController
   def callback
     user = User.from_omniauth(auth_hash)
     session[:user_id] = user.id
-    redirect_to(request.env['omniauth.origin'] || root_url)
+    redirect_to(request.env['omniauth.origin'] || home_url)
   end
 
   def failure
-    redirect_to(request.env['omniauth.origin'] || root_url)
+    redirect_to(request.env['omniauth.origin'] || home_url)
   end
 
   def signout
-    return redirect_to(root_url) unless current_user
+    return redirect_to(home_url) unless current_user
   end
 
   def destroy
     session.clear
-    redirect_to(request.env['omniauth.origin'] || root_url)
+    redirect_to(request.env['omniauth.origin'] || home_url)
   end
 
   private
