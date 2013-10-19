@@ -64,3 +64,4 @@ end
 gem 'faye'
 gem 'slim-rails'
 gem 'http_accept_language'
+gem 'settingslogic'

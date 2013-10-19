@@ -1,0 +1,28 @@
+defaults: &defaults
+  facebook: # https://developers.facebook.com/apps/1401972766703973
+    key: '1401972766703973'
+    secret: '0c1cdb24a83dbbe66ab84bc78988a4c9'
+  twitter: # https://dev.twitter.com/apps/5245792/
+    key: 'AffZ2mygy1ZVqH9zUobSg'
+    secret: 'G2Zz1gX2w5EtYu5ZZrO0ng0C96tS773FkFAuHomp4Xw'
+  vkontakte: # https://vk.com/editapp?id=3942448
+    key: '3942448'
+    secret: 'MfF8v0UMjQQS15KvYURX'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  facebook: # https://developers.facebook.com/apps/733433643339222
+    key: '733433643339222'
+    secret: '799e1c38e65cafd32435b6cf4412f584'
+  twitter: # https://dev.twitter.com/apps/
+    key: 'WwqWmkTbv2wdbChTV6hUhQ'
+    secret: 'xQ9aJeGlqXabS9OONVR0ML4bLaJUE7kB2rBGB31N8Zg'
+  vkontakte: # https://vk.com/editapp?id=3943024
+    key: '3943024'
+    secret: 'DfuMNsmVdqIZq9urzr5d'
