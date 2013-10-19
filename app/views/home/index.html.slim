@@ -1,18 +1,37 @@
-h1= Quiz
+article.jumbotron
+  .container
+    h1= Quiz
+    p= t('.description')
+    = button_to t('.play'), join_rooms_path, class: 'btn-play'
+  = render 'langbox'
+  = render 'authbox'
 
-- unless current_user.guest?
-  p
-    ' #{t(".welcome")}
-    = link_to current_user.name, user_path(current_user), class: 'js-user-link'
-  p
-    = link_to t(".sign_out"), signout_path, method: :post
-- else
-  .auth_box
-    p= t(".sign_in")
-    ul.login_providers
-      li= link_to "", signin_path(:facebook), class: 'icon icon-facebook'
-      li= link_to "", signin_path(:twitter), class: 'icon icon-twitter'
-      li= link_to "", signin_path(:vkontakte), class: 'icon icon-vk'
-
-= button_to join_rooms_path, class: 'play_button' do
-  = t('home.play')
+.container
+  section.info.row
+    article.col-md-4
+      h2
+        i.icon.icon-bar-chart
+        '
+        | foo
+      ul
+        li foo
+        li bar
+        li baz
+    article.col-md-4
+      h2
+        i.icon.icon-bolt
+        '
+        | bar
+      ul
+        li foo
+        li bar
+        li baz
+    article.col-md-4
+      h2
+        i.icon.icon-code-fork
+        '
+        | baz
+      ul
+        li foo
+        li bar
+        li baz

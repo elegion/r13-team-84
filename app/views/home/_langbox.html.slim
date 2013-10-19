@@ -1,0 +1,10 @@
+nav.languages.pull-right
+  ul.languages-list
+    li
+      = link_to home_path(locale: :en), title: "English" do
+        i.us
+        span English
+    li
+      = link_to home_path(locale: :ru), title: "Русский" do
+        i.ru
+        span Русский
