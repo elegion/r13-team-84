@@ -13,6 +13,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       secret: ENV["TWITTER_SECRET"] || "G2Zz1gX2w5EtYu5ZZrO0ng0C96tS773FkFAuHomp4Xw"
     },
     vkontakte: {
+      # https://vk.com/editapp?id=3942448
       key: ENV["VKONTAKTE_KEY"] || "3942448",
       secret: ENV["VKONTAKTE_SECRET"] || "MfF8v0UMjQQS15KvYURX"
     },
