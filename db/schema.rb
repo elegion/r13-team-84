@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20131019135420) do
 
   add_index "answers", ["question_id", "normalized_value"], name: "index_answers_on_question_id_and_normalized_value", unique: true
   add_index "answers", ["question_id", "value"], name: "index_answers_on_question_id_and_value", unique: true
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id"
 
   create_table "authentications", force: true do |t|
     t.integer  "user_id"
@@ -51,6 +52,7 @@ ActiveRecord::Schema.define(version: 20131019135420) do
     t.datetime "updated_at"
   end
 
+  add_index "questions", ["question_category_id"], name: "index_questions_on_question_category_id"
   add_index "questions", ["text"], name: "index_questions_on_text", unique: true
 
   create_table "room_questions", force: true do |t|
@@ -93,8 +95,8 @@ ActiveRecord::Schema.define(version: 20131019135420) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "room_id"
-    t.boolean  "guest"
     t.string   "avatar"
+    t.boolean  "guest"
   end
 
   add_index "users", ["room_id"], name: "index_users_on_room_id"
