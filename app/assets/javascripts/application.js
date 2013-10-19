@@ -14,3 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$ ->
+  window.FAYE_CLIENT = new Faye.Client('/faye')
