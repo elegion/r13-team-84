@@ -9,6 +9,9 @@ en:
   rooms:
     prefix: Room
 
+  users:
+    guest_prefix: guest
+
   sessions:
     signout:
       sign_out: Sign out

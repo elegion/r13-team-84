@@ -1,6 +1,6 @@
 h1= Quiz
 
-- if current_user
+- unless current_user.guest?
   p
     ' #{t(".welcome")}
     strong= current_user.name

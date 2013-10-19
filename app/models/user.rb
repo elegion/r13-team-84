@@ -8,4 +8,15 @@ class User < ActiveRecord::Base
     auth.user
   end
 
+  def self.guest
+    create(
+      name: "#{I18n.t('users.guest_prefix')} #{rand 1e7}",
+      guest: true
+    )
+  end
+
+  def guest?
+    !!guest
+  end
+
 end
