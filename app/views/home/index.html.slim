@@ -3,7 +3,7 @@ h1= Quiz
 - if current_user
   p
     ' #{t(".welcome")}
-    strong= current_user.name
+    = link_to current_user.name, user_path(current_user)
   p
     = link_to t(".sign_out"), signout_path, method: :post
 - else
