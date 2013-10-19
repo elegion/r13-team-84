@@ -9,9 +9,9 @@ h1= Quiz
 - else
   p= t(".sign_in")
   ul
-    li= link_to "Facebook", "/auth/facebook"
-    li= link_to "Twitter", "/auth/twitter"
-    li= link_to "VK", "/auth/vkontakte"
+    li= link_to "Facebook", signin_path(:facebook)
+    li= link_to "Twitter", signin_path(:twitter)
+    li= link_to "VK", signin_path(:vkontakte)
 
 = button_to join_rooms_path do
   = t('home.play')
