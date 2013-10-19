@@ -49,6 +49,7 @@ gem 'thin'
 group :development do
   # Use Capistrano for deployment
   gem 'capistrano', '~> 2', group: :development
+  gem 'better_errors'
 end
 
 group :production do
