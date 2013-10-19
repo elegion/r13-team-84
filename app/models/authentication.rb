@@ -15,6 +15,7 @@ class Authentication < ActiveRecord::Base
        auth.auth = auth_hash
        auth.user = User.new if auth.user.blank?
        auth.user.name = auth.auth.info["name"]
+       auth.user.avatar = auth.auth.info["image"]
        auth.user.save!
        auth.save!
      end
