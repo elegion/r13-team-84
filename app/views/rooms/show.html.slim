@@ -16,9 +16,10 @@ h1 = @room.name
     h2
       = t('.users')
       = "(#{@room.users.count})"
-    ul
+    ul.js-room-users
       - @room.users.each do |user|
-        li= link_to user.name, user, class: 'js-user-link'
+        li
+          = link_to user.name, user, class: 'js-user-link', data: { id: user.id }
 
     = button_to leave_rooms_path do
       = t('.leave')

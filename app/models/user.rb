@@ -24,7 +24,9 @@ class User < ActiveRecord::Base
   end
 
   def leave
+    leaved_room = room
     room.users.delete self
+    leaved_room
   end
 
 end

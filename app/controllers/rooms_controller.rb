@@ -1,5 +1,7 @@
 class RoomsController < ApplicationController
 
+  after_action :push_room_user_action, only: [ :join, :leave ]
+
   def show
     @room = Room.find(params[:id])
     redirect_to root_path unless @room.users.include? current_user
@@ -12,8 +14,18 @@ class RoomsController < ApplicationController
   end
 
   def leave
-    current_user.leave
+    @room = current_user.leave
     redirect_to root_path
+  end
+
+  private
+
+  def push_room_user_action
+    channel = "/rooms/#{@room.id}/users/#{action_name}"
+    faye_client.publish(channel, {
+      user: current_user,
+      user_link: user_path(current_user)
+    })
   end
 
 end

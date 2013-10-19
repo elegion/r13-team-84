@@ -23,9 +23,45 @@ QZ.room.chat =
   addUserMessage: (user, message, klass) ->
     QZ.room.chat._addRawMessage("<strong>#{user}: </strong><span>#{message}</span>", klass)
 
+
+class Users
+  users = {}
+  constructor: (@room_id, @container) ->
+    @_subscribeChannels()
+
+  _subscribeChannels: =>
+    @_subscribeJoin()
+    @_subscribeLeave()
+
+  _subscribeJoin: =>
+    window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/users/join", (data) =>
+      users[data.user.id] = data.user
+      @container.append(@_renderUser(data))
+
+  _subscribeLeave: =>
+    window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/users/leave", (data) =>
+      delete users[data.user.id]
+      @container.find("a[data-id=\"#{data.user.id}\"]").closest('li').remove()
+
+  _renderUser: (data) ->
+    $('<li>',
+      'html': $('<a>'
+        'class': 'js-user-link',
+        'href': data.user_link,
+        'text': data.user.name,
+        'data': {
+          'id': data.user.id
+        }
+      )
+    )
+
+
 $ ->
   if room_id = $('.js-room-id').data('roomId')
     QZ.room.init()
     window.FAYE_CLIENT.subscribe "/rooms/#{room_id}", (data) ->
       if (data.event == 'message')
         QZ.room.chat.addUserMessage(data.user, data.message, '')
+
+    new Users(room_id, $(".js-room-users"))
+
