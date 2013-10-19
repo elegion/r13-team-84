@@ -34,7 +34,12 @@ class Users
 
   _subscribeJoin: =>
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/users/join", (data) =>
-      @container.append(@_renderUser(data))
+      return if @container.find("li[data-id=\"#{data.user.id}\"]").length
+      first = @container.find('li').filter( -> $(@).data('name') > data.user.name ).first()
+      if first.length
+        first.before(@_renderUser(data))
+      else
+        @container.append(@_renderUser(data))
 
   _subscribeLeave: =>
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/users/leave", (data) =>
@@ -43,14 +48,12 @@ class Users
   _renderUser: (data) ->
     $('<li>',
       'html': $('<a>'
-        'class': 'js-user-link',
+        'class': "js-user-link",
         'href': data.user_link,
         'text': data.user.name
       ),
-      'data': {
-        'id': data.user.id,
-        'name': data.user.name
-      }
+      'data-id': data.user.id,
+      'data-name': data.user.name
     )
 
 
