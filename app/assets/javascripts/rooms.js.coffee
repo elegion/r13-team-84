@@ -25,7 +25,6 @@ QZ.room.chat =
 
 
 class Users
-  users = {}
   constructor: (@room_id, @container) ->
     @_subscribeChannels()
 
@@ -35,12 +34,10 @@ class Users
 
   _subscribeJoin: =>
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/users/join", (data) =>
-      users[data.user.id] = data.user
       @container.append(@_renderUser(data))
 
   _subscribeLeave: =>
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/users/leave", (data) =>
-      delete users[data.user.id]
       @container.find("a[data-id=\"#{data.user.id}\"]").closest('li').remove()
 
   _renderUser: (data) ->
