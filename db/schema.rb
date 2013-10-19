@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131019050843) do
+ActiveRecord::Schema.define(version: 20131019084715) do
 
   create_table "answers", force: true do |t|
     t.string   "value",       null: false
@@ -38,5 +38,11 @@ ActiveRecord::Schema.define(version: 20131019050843) do
   end
 
   add_index "questions", ["text"], name: "index_questions_on_text", unique: true
+
+  create_table "users", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
