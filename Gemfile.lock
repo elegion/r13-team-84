@@ -72,6 +72,7 @@ GEM
     hashie (2.0.5)
     highline (1.6.20)
     hike (1.2.3)
+    http_accept_language (2.0.0)
     http_parser.rb (0.6.0.beta.2)
     httpauth (0.2.0)
     i18n (0.6.5)
@@ -213,6 +214,7 @@ DEPENDENCIES
   capistrano (~> 2)
   coffee-rails (~> 4.0.0)
   faye
+  http_accept_language
   jbuilder (~> 1.2)
   jquery-rails
   mysql2

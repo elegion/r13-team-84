@@ -1,9 +1,13 @@
 Quiz::Application.routes.draw do
 
-  root 'home#index'
+  root 'home#default_locale'
 
-  resources :rooms, only: [ :show ] do
-    post :join, on: :collection
+  scope '/:locale', :constraints => {:locale => /(ru|en)/} do
+    root :to => 'home#index', :as => :home
+
+    resources :rooms, only: [ :show ] do
+      post :join, on: :collection
+    end
   end
 
   scope :auth do
