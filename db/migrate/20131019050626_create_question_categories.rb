@@ -5,7 +5,7 @@ class CreateQuestionCategories < ActiveRecord::Migration
 
       t.timestamps
 
-      t.index :name, unique: true
+      t.index :name, unique: true, length: 255
     end
   end
 end
