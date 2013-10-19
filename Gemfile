@@ -50,6 +50,7 @@ group :development do
   # Use Capistrano for deployment
   gem 'capistrano', '~> 2', group: :development
   gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :production do

@@ -31,6 +31,8 @@ GEM
     better_errors (1.0.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.1.4)
     capistrano (2.15.5)
       highline
@@ -48,6 +50,7 @@ GEM
     coffee-script-source (1.6.3)
     cookiejar (0.3.0)
     daemons (1.1.9)
+    debug_inspector (0.0.2)
     diff-lcs (1.2.4)
     em-http-request (1.1.1)
       addressable (>= 2.3.4)
@@ -216,6 +219,7 @@ PLATFORMS
 
 DEPENDENCIES
   better_errors
+  binding_of_caller
   capistrano (~> 2)
   coffee-rails (~> 4.0.0)
   faye
