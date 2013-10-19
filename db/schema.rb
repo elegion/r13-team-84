@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20131019135420) do
     t.datetime "updated_at"
     t.integer  "room_id"
     t.boolean  "guest"
+    t.string   "avatar"
   end
 
   add_index "users", ["room_id"], name: "index_users_on_room_id"

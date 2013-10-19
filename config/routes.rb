@@ -9,9 +9,11 @@ Quiz::Application.routes.draw do
       post :join, on: :collection
     end
 
-    resources :room_questions, only: [ ] do 
+    resources :room_questions, only: [ ] do
       resources :suggested_answers, only: [ :create ]
     end
+
+    resources :users, only: :show
   end
 
   scope :auth do
