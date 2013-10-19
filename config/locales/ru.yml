@@ -1,8 +1,9 @@
 ru:
   home:
-    play: "Играть"
     index:
-      welcome: Привет,
+      description: Популярная ретро-викторина из IRC-чатов
+      play: Играть
+    authbox:
       sign_in: Войти
       sign_out: Выйти
 

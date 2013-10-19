@@ -1,70 +1,128 @@
-.auth_box {
+@import "mixins";
+
+.jumbotron {
+  position: relative;
+  padding-top: 64px;
+  background: rgb(238, 238, 238) url(banner.jpg);
+  background-size: cover;
+  color: rgb(255, 255, 255);
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
+
+  text-align: center;
+
+  h1 {
+    text-transform: uppercase;
+    font-size: 80px;
+  }
+
+}
+
+a {
+}
+
+.btn-play {
+  $bg: rgb(255, 118, 51);
+
+  display: block;
+  margin: 1em auto 0;
   width: 300px;
-  float: right;
+  height: 100px;
+  line-height: 100px;
 
-  .login_providers {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: inline-block;
+  font-size: 50px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  font-variant: small-caps;
 
-    li {
-      margin:  0 1ex;
-      display: inline-block;
+  background: $bg;
+  border: 1px solid darken($bg, 20%);
+  @include borderRadius(10px);
+  @include boxShadow(0 1px 3px rgba(0, 0, 0, 0.8));
 
-      a {
-        width: 32px;
-        height: 32px;
-        display: inline-block;
-        font-size: 20px;
-        text-align: center;
-      }
-    }
+  &:hover {
+    background: darken($bg, 10%);
+    color: white;
+  }
+  &:active {
+    @include boxShadow(none);
   }
 }
 
-.play_button {
-  width: 400px;
-  height: 100px;
-  line-height: 100px;
-  color: white;
-  text-decoration: none;
-  font-size: 50px;
-  font-family: helvetica, arial;
-  font-weight: bold;
-  display: block;
+.languages {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+.languages-list {
+  list-style: none;
+  line-height: 0;
+
+  @mixin lang($lng) {
+    &.#{$lng} {
+      background: url(flags/#{$lng}.png) no-repeat;
+    }
+  }
+
+  li {
+    display: inline-block;
+    margin: 0 0.1em;
+  }
+  i {
+    display: block;
+    width: 48px;
+    height: 48px;
+    @include lang(us);
+    @include lang(ru);
+  }
+  span {
+    display: none;
+  }
+}
+
+.authbox {
+  position: absolute;
+  top: 52px;
+  right: 16px;
   text-align: center;
-  position: relative;
 
-  /* BACKGROUND GRADIENTS */
-  background: #014464;
-  background: -moz-linear-gradient(top, #0D658E, #0C577A 50%, #014D71 51%, #003E5C);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #0E658E), color-stop(.5, #0C577A), color-stop(.5, #014D71), to(#003E5C));
-  /* BORDER RADIUS */
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
+  .expander {
+    height: 1.5em;
+    overflow: hidden;
+    transition: height 0.2s linear 2s;
+    &:hover {
+      height: 4em;
+      transition-delay: 0s;
+    }
+  }
+  p {
+    margin: 0;
+  }
+  .login-providers {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 
-  border: 1px solid #368DBE;
-  border-top: 1px solid #c3d6df;
-  /* TEXT SHADOW */
+    li {
+      display: inline-block;
+    }
+    a {
+      width: 36px;
+      display: inline-block;
+      font-size: 25px;
+      text-align: center;
+    }
+  }
 
-  text-shadow: 1px 1px 1px black;
-
-  /* BOX SHADOW */
-  -moz-box-shadow: 0 1px 3px black;
-  -webkit-box-shadow: 0 1px 3px black;
-  box-shadow: 0 1px 3px black;
-}
-
-.play_button:hover {
-  background: #014464;
-  background: -moz-linear-gradient(top, #0c5f85, #0b5273 50%, #024869 51%, #003853);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #0c5f85), color-stop(.5, #0b5273), color-stop(.51, #024869), to(#003853));
-}
-
-/* WHILE BEING CLICKED */
-.play_button:active {
-  -moz-box-shadow: 0 2px 6px black;
-  -webkit-box-shadow: 0 2px 6px black;
+  a {
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    &:hover, &:focus {
+      color: rgb(237, 237, 237);
+    }
+  }
+  a.icon {
+    text-decoration: none;
+  }
 }

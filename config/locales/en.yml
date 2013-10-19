@@ -1,10 +1,11 @@
 en:
   home:
-    play: "Play"
     index:
-      welcome: Welcome,
-      sign_in: Sign in
-      sign_out: Sign out
+      description: Popular retro game from IRC chats on the web.
+      play: Play
+    authbox:
+      sign_in: Log in via
+      sign_out: Log out
 
   rooms:
     prefix: Room
