@@ -23,9 +23,8 @@ protected
   end
 
   def push_room_questions
-    channel = "/rooms/#{@room_question.room_id}"
+    channel = "/rooms/#{@room_question.room_id}/message"
     data = {
-        event: 'message',
         user: current_user.name,
         message: @suggested_answer.value
     }

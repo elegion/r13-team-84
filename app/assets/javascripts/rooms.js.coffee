@@ -59,9 +59,8 @@ class Users
 $ ->
   if room_id = $('.js-room-id').data('roomId')
     QZ.room.init()
-    window.FAYE_CLIENT.subscribe "/rooms/#{room_id}", (data) ->
-      if (data.event == 'message')
-        QZ.room.chat.addUserMessage(data.user, data.message, '')
+    window.FAYE_CLIENT.subscribe "/rooms/#{room_id}/message", (data) ->
+      QZ.room.chat.addUserMessage(data.user, data.message, '')
 
     new Users(room_id, $(".js-room-users"))
 
