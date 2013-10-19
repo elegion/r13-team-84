@@ -6,5 +6,11 @@ class Question < ActiveRecord::Base
   has_many :room_question, dependent: :destroy
 
   validates :text, presence: true, uniqueness: true
+
+  scope :random, -> { order('random()').first }
+
+  def valid_answer?(answer)
+    self.answers.by_normalized_value(answer).exists?
+  end
   
 end
