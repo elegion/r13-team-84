@@ -6,12 +6,13 @@ h1= Quiz
     strong= current_user.name
   p
     = link_to t(".sign_out"), signout_path, method: :post
+
+  = button_to join_rooms_path do
+    = t('home.play')
+
 - else
   p= t(".sign_in")
   ul
     li= link_to "Facebook", signin_path(:facebook)
     li= link_to "Twitter", signin_path(:twitter)
     li= link_to "VK", signin_path(:vkontakte)
-
-= button_to join_rooms_path do
-  = t('home.play')
