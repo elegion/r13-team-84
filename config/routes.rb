@@ -53,4 +53,10 @@ Quiz::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  root 'home#index'
+  resources :rooms, only: [ :show ] do
+    post :join, on: :collection
+  end
+
 end

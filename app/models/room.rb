@@ -15,6 +15,10 @@ class Room < ActiveRecord::Base
     end
   end
 
+  def full?
+    self.created_at < 1.minute.ago
+  end
+
 protected
 
   def next_question
