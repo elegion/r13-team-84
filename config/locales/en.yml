@@ -1,3 +1,7 @@
 en:
   home:
     play: "Play"
+
+  sessions:
+    signout:
+      sign_out: Sign out

@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
   end
 
   def signout
-    # TODO: render page with logout form.
+    return redirect_to(root_url) unless current_user
   end
 
   def destroy
