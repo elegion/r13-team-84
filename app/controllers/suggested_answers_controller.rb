@@ -4,8 +4,8 @@ class SuggestedAnswersController < ApplicationController
   after_action :push_room_questions
 
   def create
-    suggested_answer = @room_question.suggested_answers.build(suggested_answer_params)
-    suggested_answer.save!
+    @suggested_answer = @room_question.suggested_answers.build(suggested_answer_params)
+    @suggested_answer.save!
     respond_to do |foramt|
       foramt.html { redirect_to @room_question.room }
       foramt.js { head :ok }
@@ -23,9 +23,13 @@ protected
   end
 
   def push_room_questions
-    view = render_to_string('rooms/_room_questions', locals: { room: @room_question.room }, layout: false )
     channel = "/rooms/#{@room_question.room_id}"
-    faye_client.publish(channel, view)
+    data = {
+        event: 'message',
+        user: current_user.name,
+        message: @suggested_answer.value
+    }
+    faye_client.publish(channel, data)
   end
   
 end

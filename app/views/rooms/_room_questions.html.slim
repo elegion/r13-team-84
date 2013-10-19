@@ -1,21 +1,16 @@
-.well
-  - room.room_questions.each do |room_question|
-    article
-      h3 = room_question.question.text
-      p 
-        strong Answers: 
-        = room_question.question.answers.pluck(:value).join(', ')
+- room.room_questions.each do |room_question|
+  article
+    h3 = room_question.question.text
+    p
+      strong Answers:
+      = room_question.question.answers.pluck(:value).join(', ')
 
-      - room_question.suggested_answers.each do |suggested_answer|
-        p
-          strong #{suggested_answer.user.name}: 
-          = suggested_answer.value
+    - room_question.suggested_answers.each do |suggested_answer|
+      p
+        strong #{suggested_answer.user.name}:
+        = suggested_answer.value
 
-      - if room_question.winner_id?
-        p
-          strong Winner: 
-          = room_question.winner.name
-.well
-  = form_for [ room.last_room_question, SuggestedAnswer.new ], remote: true do |f|
-    = f.text_field :value
-    = f.submit
+    - if room_question.winner_id?
+      p
+        strong Winner:
+        = room_question.winner.name

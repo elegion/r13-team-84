@@ -1,6 +1,13 @@
 QZ.room = {}
 
 QZ.room.chat =
+  init: ->
+    $('.js-room-chat').scroll(QZ.room.chat._onChatScroll)
+    return
+
+  _onChatScroll: (event) ->
+
+
   _addRawMessage: (html, klass) ->
     $chat = $('.js-room-chat')
     $row = $("<p class='message #{klass}'>#{html}</p>")
@@ -12,6 +19,6 @@ QZ.room.chat =
 
 $ ->
   if room_id = $('.js-room-id').data('roomId')
-    $room_questions = $(".js-room-questions")
     window.FAYE_CLIENT.subscribe "/rooms/#{room_id}", (data) ->
-      $room_questions.html(data)
+      if (data.event == 'message')
+        QZ.room.chat.addUserMessage(data.user, data.message, '')
