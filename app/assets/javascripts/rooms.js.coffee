@@ -4,9 +4,9 @@ QZ.room =
     @room_id = @container.data('roomId')
     return unless @room_id
     new ChatLog(@room_id, @container.find('.js-room-chatlog'))
-    new CurrentQuestion(@room_id, @container.find('.js-room-question'))
     new Users(@room_id, @container.find('.js-room-users'))
-    new Form(@room_id, @container.find('.js-room-message-form'))
+    form = new Form(@room_id, @container.find('.js-room-message-form'))
+    new CurrentQuestion(@room_id, @container.find('.js-room-question'), form)
 
 
 class ChatLog
@@ -27,15 +27,16 @@ class ChatLog
 
 
 class CurrentQuestion
-  constructor: (@room_id, @container) ->
+  constructor: (@room_id, @container, @form) ->
     @_subscribe()
 
   _subscribe: ->
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/question", (data) =>
-      @_update(data.html)
+      @_update(data)
 
-  _update: (html) ->
-    @container.html(html)
+  _update: (data) ->
+    @container.html(data.html)
+    @form.updateUrl(data.form_url)
 
 
 class Users
@@ -67,6 +68,9 @@ class Form
       return false unless @input.val().length
       @input.val('')
       true
+
+  updateUrl: (url) ->
+    @form[0].action = url
 
 
 $ -> QZ.room.init()
