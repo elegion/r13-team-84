@@ -11,4 +11,16 @@ class Question < ActiveRecord::Base
     self.answers.by_normalized_value(answer).exists?
   end
 
+  def first_hint
+    self.answer[0]
+  end
+
+  def second_hint
+    self.answer[0..2]
+  end
+
+  def answer
+    self.answers.first.value
+  end
+
 end
