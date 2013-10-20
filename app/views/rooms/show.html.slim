@@ -5,9 +5,9 @@ header.jumbotron.secondary
 section.js-room-container.container data-room-id=@room.id
   .col-xs-12.col-sm-9
     .well.room-chat.js-room-chatlog
-      = render 'room_questions', room: @room
+      = render 'chatlog', room: @room
     .well.room-question.js-room-question
-      = render 'room_question', question: @room.last_room_question.question
+      = render 'current_question', question: @room.last_room_question.question
     .well
       = form_for @room.last_room_question.suggested_answers.build, remote: true, html: {class: 'js-room-message-form'} do |f|
         = f.hidden_field :room_question_id, class: 'js-room-question-id'
@@ -28,4 +28,4 @@ section.js-room-container.container data-room-id=@room.id
       .panel-body
         ul.list-unstyled.js-room-users
           - @room.users.sort_by(&:name).each do |user|
-            = render 'room_user', user: user
+            = render 'user', user: user

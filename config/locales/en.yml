@@ -12,9 +12,10 @@ en:
     show:
       submit: Submit
       leave: Leave
-
-    room_question:
+    current_question:
       chars: "%{count} chars"
+    chatlog:
+      winner: Winner
 
   users:
     guest_prefix: guest

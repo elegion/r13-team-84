@@ -3,11 +3,18 @@ QZ.room =
     @container = $('.js-room-container')
     @room_id = @container.data('roomId')
     return unless @room_id
-    new ChatLog(@room_id, @container.find('.js-room-chatlog'))
-    new Users(@room_id, @container.find('.js-room-users'))
-    form = new Form(@room_id, @container.find('.js-room-message-form'))
-    new CurrentQuestion(@room_id, @container.find('.js-room-question'), form)
-    new CurrentQuestionHint(@room_id)
+    @chatlog = new ChatLog(@room_id, @container.find('.js-room-chatlog'))
+    @users = new Users(@room_id, @container.find('.js-room-users'))
+    @form = new Form(@room_id, @container.find('.js-room-message-form'))
+    @question = new CurrentQuestion(@room_id, @container.find('.js-room-question'))
+    @hint = new CurrentQuestionHint(@room_id)
+    @_subscribe()
+
+  _subscribe: ->
+    window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/question", (data) =>
+      @chatlog.newQuestion(data)
+      @question.update(data)
+      @form.updateRoomQuestionId(data.room_question_id)
 
 
 class ChatLog
@@ -30,18 +37,23 @@ class ChatLog
   scrollToBottom: ->
     @container.stop(true).animate(scrollTop: @container.prop('scrollHeight'))
 
+  newQuestion: (data) ->
+    @addRawMessage(data.html)
+
 
 class CurrentQuestion
-  constructor: (@room_id, @container, @form) ->
-    @_subscribe()
+  constructor: (@room_id, @container) ->
 
-  _subscribe: ->
-    window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/question", (data) =>
-      @_update(data)
-
-  _update: (data) ->
+  update: (data) ->
     @container.html(data.html)
-    @form.updateRoomQuestionId(data.room_question_id)
+
+
+class CurrentQuestionHint
+  constructor: (@room_id) ->
+    window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/hint", @updateHint
+
+  updateHint: (data) ->
+    $('.js-hint').text(data.hint)
 
 
 class Users
@@ -81,6 +93,7 @@ class Users
         $rating.html("(#{value})")
     )
 
+
 class Form
   constructor: (@room_id, @form) ->
     @input = @form.find('.js-room-message-form-message')
@@ -91,13 +104,6 @@ class Form
 
   updateRoomQuestionId: (roomQuestionId) ->
     @form.find('.js-room-question-id').val()
-
-class CurrentQuestionHint
-  constructor: (@room_id) ->
-    window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/hint", @updateHint
-
-  updateHint: (data) ->
-    $('.js-hint').text(data.hint)
 
 
 $ -> QZ.room.init()

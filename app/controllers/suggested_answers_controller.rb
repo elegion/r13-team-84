@@ -1,6 +1,7 @@
 class SuggestedAnswersController < ApplicationController
 
-  after_action :push_message, :push_question
+  after_action :push_question, :push_winner, if: proc { @suggested_answer.is_valid? }
+  after_action :push_message
 
   def create
     @suggested_answer = current_user.suggested_answers.create(suggested_answer_params)
@@ -22,19 +23,22 @@ class SuggestedAnswersController < ApplicationController
 
   def push_message
     channel = "/rooms/#{room_question.room_id}/message"
-    data = {
-      html: render_to_string('rooms/_room_message', layout: false,
-                             locals: { suggested_answer: @suggested_answer }),
-    }
-    faye_client.publish(channel, data)
+    html = render_to_string('rooms/_user_message', layout: false,
+                            locals: { suggested_answer: @suggested_answer })
+    faye_client.publish(channel, html: html)
+  end
+
+  def push_winner
+    channel = "/rooms/#{room_question.room_id}/message"
+    html = render_to_string('rooms/_winner', layout: false,
+                            locals: { user: current_user })
+    faye_client.publish(channel, html: html)
   end
 
   def push_question
-    if @suggested_answer.is_valid?
-      channel = "/rooms/#{room_question.room_id}/question"
-      data = room_question.room.last_room_question.decorate.faye_hash
-      faye_client.publish(channel, data)
-    end
+    channel = "/rooms/#{room_question.room_id}/question"
+    data = room_question.room.last_room_question.decorate.faye_hash
+    faye_client.publish(channel, data)
   end
 
 end

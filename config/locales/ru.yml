@@ -12,12 +12,13 @@ ru:
     show:
       submit: Отправить
       leave: Выйти
-
-    room_question:
+    current_question:
       chars:
         one: "%{count} буква"
         few: "%{count} буквы"
         many: "%{count} букв"
+    chatlog:
+      winner: Победитель
 
   users:
     guest_prefix: гость
