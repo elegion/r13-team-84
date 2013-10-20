@@ -15,14 +15,25 @@ class RoomsDeamon::RoomsManager
       room_hash[room.id] = room_watcher
 
       faye_client.subscribe(room_watcher.questions_channel) do |message|
-        logger.debug [ :message, room_watcher.questions_channel, message ]
+        logger.debug [ :room_question, room_watcher.questions_channel, message ]
         room_watcher.update_room_question
       end
 
-      # TODO: Watch new rooms
     end
   rescue => error
     logger.error error
+  end
+
+  def push_room_id(room_id)
+    room = Room.find(room_id)
+    push_room(room)
+  end
+
+  def search_new_rooms
+    faye_client.subscribe('/rooms/touch') do |message|
+      logger.debug([ :rooms_touch, message ])
+      self.push_room_id(message['room_id'])
+    end
   end
 
 protected

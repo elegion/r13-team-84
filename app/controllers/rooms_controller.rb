@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
 
   after_action :push_room_user_action, only: [ :join, :leave ]
+  after_action :touch_room, only: [ :show ]
 
   def show
     @room = Room.find(params[:id])
@@ -34,6 +35,10 @@ class RoomsController < ApplicationController
       user: current_user,
       html: render_to_string('rooms/_user', locals: {user: current_user}, layout: false)
     })
+  end
+
+  def touch_room
+    faye_client.publish("/rooms/touch", { room_id: @room.id })
   end
 
 end
