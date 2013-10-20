@@ -25,9 +25,7 @@ class User < ActiveRecord::Base
   end
 
   def leave
-    leaved_room = room
-    room.users.delete self
-    leaved_room
+    room.tap { |r| r.users.delete(self) }
   end
 
   def heartbeat
