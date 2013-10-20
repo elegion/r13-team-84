@@ -3,17 +3,21 @@ require 'faye'
 require 'daemons'
 
 namespace :rooms_deamon do
+
+  desc "Run foreground"
   task :run => :environment do
-    Rails.logger = Logger.new(Rails.root.join('log/rooms_deamon.log'))
-    EventMachine.run do
-      # Control + C for stop
-      Signal.trap("INT")  { EventMachine.stop }
-      Signal.trap("TERM") { EventMachine.stop }
+    RoomsDeamon.new(false).start
+  end
 
-      faye_client = Faye::Client.new(Settings.rooms_deamon.faye_url)
+  desc "Run background"
+  task :start => :environment do
+    RoomsDeamon.new(true).start
+  end
 
-      rooms_deamon = RoomsDeamon::RoomsManager.new(faye_client)
-      Room.find_each { |room| rooms_deamon.push_room(room) }
-    end #EventMachine.run
-  end # task :run
+  desc "Stop background"
+  task :stop => :environment do
+   'kill -TERM `cat tmp/pids/rooms_daemon.pid`'
+    RoomsDeamon.new(true).stop(ENV['SIGNAL'])
+  end
+
 end # namespace :rooms_deamon
