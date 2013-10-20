@@ -2,7 +2,8 @@ QZ.room =
   init: ->
     @container = $('.js-room-container')
     @room_id = @container.data('roomId')
-    return unless @room_id
+    @user_id = @container.data('userId')
+    return unless @room_id and @user_id
     @chatlog = new ChatLog(@room_id, @container.find('.js-room-chatlog'))
     @users = new Users(@room_id, @container.find('.js-room-users'))
     @form = new Form(@room_id, @container.find('.js-room-message-form'))
@@ -10,6 +11,7 @@ QZ.room =
     @hint = new CurrentQuestionHint(@room_id)
     @questions_over = new QuestionsOver(@container)
     @_subscribe()
+    @_heartbeat()
 
   _subscribe: ->
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/question", (data) =>
@@ -18,6 +20,10 @@ QZ.room =
         @chatlog.newQuestion(data)
         @question.update(data)
         @form.updateRoomQuestionId(data.room_question_id)
+
+  _heartbeat: ->
+    f = => window.FAYE_CLIENT.publish("/heartbeat", user_id: @user_id)
+    window.setInterval(f, 1000)
 
 class ChatLog
   constructor: (@room_id, @container) ->

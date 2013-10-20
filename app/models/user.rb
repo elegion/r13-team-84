@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
     leaved_room
   end
 
+  def heartbeat
+    touch
+  end
+
   private
 
   def init
