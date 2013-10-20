@@ -2,28 +2,29 @@ span.js-room-id data-room-id=@room.id
 
 .jumbotron
 
-.col-xs-12.col-sm-9
-  .well.room-chat.js-room-chat
-    = render 'room_questions', room: @room
-  .well
-    = form_for [ @room.last_room_question, SuggestedAnswer.new ], remote: true, html: {class: 'js-room-message-form form-inline'} do |f|
-      .form-group.room-input
-        span class="#{color_class(current_user.id)}" = current_user.name
-      .form-group.room-input
-        = f.text_field :value, autofocus: true, class: 'js-room-message-form-message form-control'
-      .form-group
-        = f.submit t('.submit'), class: "btn btn-success"
+.container
+  .col-xs-12.col-sm-9
+    .well.room-chat.js-room-chat
+      = render 'room_questions', room: @room
+    .well
+      = form_for [ @room.last_room_question, SuggestedAnswer.new ], remote: true, html: {class: 'js-room-message-form form-inline'} do |f|
+        .form-group.room-input
+          span class="#{color_class(current_user.id)}" = current_user.name
+        .form-group.room-input
+          = f.text_field :value, autofocus: true, class: 'js-room-message-form-message form-control'
+        .form-group
+          = f.submit t('.submit'), class: "btn btn-success"
 
 
-.col-xs-6.col-sm-3.sidebar-offcanvas
-  .panel.panel-success
-    .panel-heading
-      .pull-right
-        = button_to leave_rooms_path, class: 'btn' do
-          = t('.leave')
-      h2 = @room.name
-    .panel-body
-      ul.list-unstyled.js-room-users
-        - @room.users.sort_by(&:name).each do |user|
-          li data-id= user.id data-name= user.name
-            = link_to user.name, user, class: "js-user-link #{color_class(user.id)}"
+  .col-xs-6.col-sm-3.sidebar-offcanvas
+    .panel.panel-success
+      .panel-heading
+        .pull-right
+          = button_to leave_rooms_path, class: 'btn' do
+            = t('.leave')
+        h2 = @room.name
+      .panel-body
+        ul.list-unstyled.js-room-users
+          - @room.users.sort_by(&:name).each do |user|
+            li data-id= user.id data-name= user.name
+              = link_to user.name, user, class: "js-user-link #{color_class(user.id)}"
