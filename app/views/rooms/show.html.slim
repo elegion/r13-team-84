@@ -28,5 +28,4 @@ span.js-room-id data-room-id=@room.id
       .panel-body
         ul.list-unstyled.js-room-users
           - @room.users.sort_by(&:name).each do |user|
-            li data-id= user.id data-name= user.name
-              = link_to user.name, user, class: "js-user-link #{color_class(user.id)}"
+            = render 'room_user', user: user

@@ -37,24 +37,13 @@ class Users
       return if @container.find("li[data-id=\"#{data.user.id}\"]").length
       first = @container.find('li').filter( -> $(@).data('name') > data.user.name ).first()
       if first.length
-        first.before(@_renderUser(data))
+        first.before(data.html)
       else
-        @container.append(@_renderUser(data))
+        @container.append(data.html)
 
   _subscribeLeave: =>
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/users/leave", (data) =>
       @container.find("li[data-id=\"#{data.user.id}\"]").remove()
-
-  _renderUser: (data) ->
-    $('<li>',
-      'html': $('<a>'
-        'class': "js-user-link #{data.class}",
-        'href': data.user_link,
-        'text': data.user.name
-      ),
-      'data-id': data.user.id,
-      'data-name': data.user.name
-    )
 
 
 $ ->
