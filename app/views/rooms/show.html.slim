@@ -1,12 +1,10 @@
-span.js-room-id data-room-id=@room.id
-
-.jumbotron.secondary
+header.jumbotron.secondary
   .container
     h1= link_to "Quiz", home_path
 
-.container
+section.js-room-container.container data-room-id=@room.id
   .col-xs-12.col-sm-9
-    .well.room-chat.js-room-chat
+    .well.room-chat.js-room-chatlog
       = render 'room_questions', room: @room
     .well
       = form_for [ @room.last_room_question, SuggestedAnswer.new ], remote: true, html: {class: 'js-room-message-form form-inline'} do |f|

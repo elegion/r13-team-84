@@ -1,23 +1,29 @@
 QZ.room =
   init: ->
-    $form = $('.js-room-message-form')
-    $form.on 'ajax:beforeSend', (evt, xhr, settings) ->
-      $input = $form.find('.js-room-message-form-message')
-      return false unless $input.val().length
-      $input.val('')
+    @container = $('.js-room-container')
+    @room_id = @container.data('roomId')
+    return unless @room_id
+    new ChatLog(@room_id, @container.find('.js-room-chatlog'))
+    new CurrentQuestion(@room_id, @container.find('.js-room-question'))
+    new Users(@room_id, @container.find('.js-room-users'))
+    new Form(@room_id, @container.find('.js-room-message-form'))
 
-QZ.room.chat =
-  init: ->
-    $('.js-room-chat').scroll(QZ.room.chat._onChatScroll)
-    return
 
-  _onChatScroll: (event) ->
+class ChatLog
+  constructor: (@room_id, @container) ->
+    @container.scroll(@_onChatScroll)
+    @_subscribe()
+
+  _subscribe: ->
+    window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/message", (data) =>
+      @addRawMessage(data.html)
+
+  _onChatScroll: (event) =>
 
   addRawMessage: (html) ->
-    $chat = $('.js-room-chat')
     $row = $(html)
-    $row.appendTo($chat).hide().fadeIn()
-    $chat.stop(true, false).animate({scrollTop: $chat.prop('scrollHeight')})
+    $row.appendTo(@container).hide().fadeIn()
+    @container.stop(true, false).animate({scrollTop: @container.prop('scrollHeight')})
 
 
 class Users
@@ -42,11 +48,13 @@ class Users
       @container.find("li[data-id=\"#{data.user.id}\"]").remove()
 
 
-$ ->
-  if room_id = $('.js-room-id').data('roomId')
-    QZ.room.init()
-    window.FAYE_CLIENT.subscribe "/rooms/#{room_id}/message", (data) ->
-      QZ.room.chat.addRawMessage(data.html)
+class Form
+  constructor: (@room_id, @form) ->
+    @input = @form.find('.js-room-message-form-message')
+    @form.on 'ajax:beforeSend', (evt, xhr, settings) =>
+      return false unless @input.val().length
+      @input.val('')
+      true
 
-    new Users(room_id, $(".js-room-users"))
 
+$ -> QZ.room.init()
