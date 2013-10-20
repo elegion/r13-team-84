@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131019135420) do
+ActiveRecord::Schema.define(version: 20131020055232) do
 
   create_table "answers", force: true do |t|
     t.string   "value",            null: false
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 20131019135420) do
     t.integer  "room_id"
     t.string   "avatar"
     t.boolean  "guest"
+    t.float    "rating"
   end
 
   add_index "users", ["room_id"], name: "index_users_on_room_id"

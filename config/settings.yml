@@ -8,6 +8,8 @@ defaults: &defaults
   vkontakte: # https://vk.com/editapp?id=3942448
     key: '3942448'
     secret: 'MfF8v0UMjQQS15KvYURX'
+  rating:
+    initial: 100.0
 
 development:
   <<: *defaults
