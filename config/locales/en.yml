@@ -38,6 +38,13 @@ en:
     guest_prefix: guest
     rating: rating
 
+    user_stats:
+      fastest_answer: "Fastest answer"
+      seconds: "seconds"
+      answers_in_a_row: "Answers in a row"
+    show:
+      stats_for_en: "Statistics for english questions"
+      stats_for_ru: "Stats for russian questions"
   sessions:
     signout:
       sign_out: Sign out

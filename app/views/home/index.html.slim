@@ -14,11 +14,11 @@
       span.js-stats-current-label = t('home.stats.stats_by_day')
       '
       small
-        '(#{link_to t('home.stats.stats_by_day'), '#stats_by_day', class: 'current js-stats-link'}
+        | (#{link_to t('home.stats.stats_by_day'), '#stats_by_day', class: 'current js-stats-link'}
         | &nbsp|&nbsp;
         = link_to t('home.stats.stats_by_week'), '#stats_by_week', class: 'js-stats-link'
         | &nbsp;|&nbsp;
-        '#{link_to t('home.stats.stats_by_month'), '#stats_by_month', class: 'js-stats-link'} )
+        | #{link_to t('home.stats.stats_by_month'), '#stats_by_month', class: 'js-stats-link'})
     section.info.row.js-stats-container#stats_by_day
       = render 'stats', stats: @today_stats
       - if @today_stats[:correct_answers].count == 0
