@@ -68,3 +68,4 @@ gem 'http_accept_language'
 gem 'settingslogic'
 gem 'randumb'  # Fetches random record from database
 gem 'rails-i18n'
+gem 'draper'
