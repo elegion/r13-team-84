@@ -8,7 +8,7 @@ class SuggestedAnswer < ActiveRecord::Base
 
   after_save :check_value
 
-protected
+  protected
 
   def check_value
     if room_question.question.valid_answer?(self.value)

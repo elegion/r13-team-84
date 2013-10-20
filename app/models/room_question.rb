@@ -9,7 +9,7 @@ class RoomQuestion < ActiveRecord::Base
 
   after_save :next_room_question, if: :winner_id_changed?
 
-protected
+  protected
 
   def next_room_question
     self.room.next_room_question

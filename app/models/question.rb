@@ -10,5 +10,5 @@ class Question < ActiveRecord::Base
   def valid_answer?(answer)
     self.answers.by_normalized_value(answer).exists?
   end
-  
+
 end
