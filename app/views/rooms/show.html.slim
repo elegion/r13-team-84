@@ -9,13 +9,12 @@ section.js-room-container.container data-room-id=@room.id
     .well.room-question.js-room-question
       = render 'room_question', room: @room
     .well
-      = form_for [ @room.last_room_question, SuggestedAnswer.new ], remote: true, html: {class: 'js-room-message-form form-inline'} do |f|
-        .form-group.room-input
-          span class="#{color_class(current_user.id)}" = current_user.name
-        .form-group.room-input
+      = form_for [ @room.last_room_question, SuggestedAnswer.new ], remote: true, html: {class: 'js-room-message-form'} do |f|
+        .input-group
+          span.input-group-addon class="#{color_class(current_user.id)}" = current_user.name
           = f.text_field :value, autofocus: true, class: 'js-room-message-form-message form-control'
-        .form-group
-          = f.submit t('.submit'), class: "btn btn-success"
+          span.input-group-btn
+            = f.submit t('.submit'), class: "btn btn-success"
 
 
   .col-xs-6.col-sm-3.sidebar-offcanvas
