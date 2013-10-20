@@ -7,6 +7,20 @@
   }
 }
 
+.room-name {
+  margin: 0;
+
+  small {
+    white-space: nowrap;
+  }
+}
+
+.current-question {
+  h3 {
+    margin-top: 10px;
+  }
+}
+
 .nickname-color-1 {
   color: #45c7c1;
 }
