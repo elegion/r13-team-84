@@ -39,7 +39,7 @@ class Room < ActiveRecord::Base
     )
   end
 
-protected
+  protected
 
   def next_question
     Question.where.not(id: self.questions).random

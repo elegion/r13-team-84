@@ -20,4 +20,5 @@ class ApplicationController < ActionController::Base
   def faye_client
     request.env['faye.client']
   end
+
 end
