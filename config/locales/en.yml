@@ -15,6 +15,7 @@ en:
       fastest_answer: "Fastest answer"
       answers_in_a_row: "Answers in a row"
       no_today: "No statistics for today yet."
+      seconds: "seconds"
   rooms:
     prefix: Room
     show:

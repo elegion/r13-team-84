@@ -15,6 +15,7 @@ ru:
       fastest_answer: "Самый быстрый ответ"
       answers_in_a_row: "Ответов подряд"
       no_today: "На сегодня еще нет статистики."
+      seconds: "секунд"
   rooms:
     prefix: Комната
     show:
