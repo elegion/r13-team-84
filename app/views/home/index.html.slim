@@ -1,37 +1,43 @@
-article.jumbotron
-  .container
-    h1= Quiz
-    p= t('.description')
-    = button_to t('.play'), join_rooms_path, class: 'btn-play'
-  = render 'langbox'
-  = render 'authbox'
+#wrap
+  article.jumbotron
+    .container
+      h1= Quiz
+      p= t('.description')
+      = button_to t('.play'), join_rooms_path, class: 'btn-play'
+    = render 'langbox'
+    = render 'authbox'
 
-.container
-  section.info.row
-    article.col-md-4
-      h2
-        i.icon.icon-bar-chart
-        '
-        | foo
-      ul
-        li foo
-        li bar
-        li baz
-    article.col-md-4
-      h2
-        i.icon.icon-bolt
-        '
-        | bar
-      ul
-        li foo
-        li bar
-        li baz
-    article.col-md-4
-      h2
-        i.icon.icon-code-fork
-        '
-        | baz
-      ul
-        li foo
-        li bar
-        li baz
+  .container
+    section.info.row
+      article.col-md-4
+        h2
+          i.icon.icon-bar-chart
+          '
+          | foo
+        ul
+          li foo
+          li bar
+          li baz
+      article.col-md-4
+        h2
+          i.icon.icon-bolt
+          '
+          | bar
+        ul
+          li foo
+          li bar
+          li baz
+      article.col-md-4
+        h2
+          i.icon.icon-code-fork
+          '
+          | baz
+        ul
+          li foo
+          li bar
+          li baz
+
+footer#footer
+  .container
+    p
+      = link_to "Rails Rumble 2013", "http://railsrumble.com/entries/84-quiz"

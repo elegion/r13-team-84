@@ -1,5 +1,23 @@
+html, body {
+  height: 100%;
+}
+
 body {
   font: 300 16px 'Roboto', sans-serif
+}
+
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -30px;
+  padding: 0 0 30px;
+}
+
+#footer {
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
 }
 
 .jumbotron {
