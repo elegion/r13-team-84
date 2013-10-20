@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   has_many :suggested_answers, dependent: :destroy
   after_initialize :init
 
-  def self.from_omniauth(auth_hash)
-    auth = Authentication.find_or_create_by_hash(auth_hash)
+  def authentificate(auth_hash)
+    auth = Authentication.find_or_create_by_hash(auth_hash, self)
     auth.user
   end
 
