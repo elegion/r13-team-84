@@ -21,6 +21,7 @@ class RoomsDeamon
       Signal.trap("TERM") { EM.stop }
 
       Room.find_each { |room| rooms_deamon.push_room(room) }
+      @user_manager ||= RoomsDeamon::UserManager.new(faye_client)
 
     end #EventMachine.run
     logger.debug('EM.stop'); 
