@@ -9,4 +9,4 @@
       p
         strong #{t('.winner')}:
         '
-        = room_question.winner.name
+        span class=color_class(room_question.winner.id) = room_question.winner.name
