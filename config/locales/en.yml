@@ -18,6 +18,7 @@ en:
 
   users:
     guest_prefix: guest
+    rating: rating
 
   sessions:
     signout:

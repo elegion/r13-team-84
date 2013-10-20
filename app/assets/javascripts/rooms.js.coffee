@@ -12,8 +12,9 @@ QZ.room =
 
 class ChatLog
   constructor: (@room_id, @container) ->
-    @container.scroll(@_onChatScroll)
     @_subscribe()
+    @scrollToBottom()
+    @container.scroll(@_onChatScroll)
 
   _subscribe: ->
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/message", (data) =>
@@ -24,7 +25,10 @@ class ChatLog
   addRawMessage: (html) ->
     $row = $(html)
     $row.appendTo(@container).hide().fadeIn()
-    @container.stop(true, false).animate({scrollTop: @container.prop('scrollHeight')})
+    @scrollToBottom()
+
+  scrollToBottom: ->
+    @container.stop(true).animate(scrollTop: @container.prop('scrollHeight'))
 
 
 class CurrentQuestion
@@ -47,6 +51,7 @@ class Users
   _subscribeChannels: =>
     @_subscribeJoin()
     @_subscribeLeave()
+    @_subscribeRatings()
 
   _subscribeJoin: =>
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/users/join", (data) =>
@@ -61,6 +66,20 @@ class Users
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/users/leave", (data) =>
       @container.find("li[data-id=\"#{data.user.id}\"]").remove()
 
+  _subscribeRatings: =>
+    window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/users/ratings", (data) =>
+      for user in data.users
+        $user = @container.find("li[data-id=\"#{user.id}\"]")
+        $rating = $user.find('.js-user-rating')
+        @_animateRatingChange($rating, user.rating)
+
+  _animateRatingChange: ($rating, to) =>
+    from = parseFloat($rating.html()[1..-1])
+    $({rating: from}).animate({rating: to},
+      step: ->
+        value = Math.round(@rating * 10) / 10
+        $rating.html("(#{value})")
+    )
 
 class Form
   constructor: (@room_id, @form) ->

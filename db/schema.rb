@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131020055232) do
+ActiveRecord::Schema.define(version: 20131020110020) do
 
   create_table "answers", force: true do |t|
     t.string   "value",            null: false
@@ -50,8 +50,10 @@ ActiveRecord::Schema.define(version: 20131020055232) do
     t.integer  "question_category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "locale"
   end
 
+  add_index "questions", ["locale"], name: "index_questions_on_locale"
   add_index "questions", ["question_category_id"], name: "index_questions_on_question_category_id"
   add_index "questions", ["text"], name: "index_questions_on_text", unique: true
 
@@ -85,6 +87,7 @@ ActiveRecord::Schema.define(version: 20131020055232) do
     t.integer  "room_question_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_valid"
   end
 
   add_index "suggested_answers", ["room_question_id"], name: "index_suggested_answers_on_room_question_id"

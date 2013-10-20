@@ -21,6 +21,7 @@ ru:
 
   users:
     guest_prefix: гость
+    rating: рейтинг
 
   sessions:
     signout:

@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   private
 
   def init
-    self.rating = Settings.rating.initial
+    self.rating ||= Settings.rating.initial
   end
 
 end

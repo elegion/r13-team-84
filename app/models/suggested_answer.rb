@@ -6,13 +6,19 @@ class SuggestedAnswer < ActiveRecord::Base
   validates :user_id, :room_question_id, presence: true
   validates :value, presence: true
 
-  after_save :check_value
+  before_save :check_valid
+  after_save :update_room
 
   protected
 
-  def check_value
-    if room_question.question.valid_answer?(self.value)
+  def check_valid
+    self.is_valid = room_question.question.valid_answer?(self.value)
+  end
+
+  def update_room
+    if self.is_valid?
       room_question.update_attributes(winner_id: self.user_id)
+      Rating::update_ratings(room_question.room.users, self.user)
     end
   end
 
