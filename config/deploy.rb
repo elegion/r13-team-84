@@ -49,23 +49,30 @@ end
 namespace :deploy do
   desc "Start the Thin processes"
   task :start do
-    run  <<-CMD
-      cd #{current_path}; bundle exec thin start -C config/thin.yml
-    CMD
+    run  %{
+      cd #{current_path};
+      bundle exec thin start -C config/thin.yml;
+      bundle exec rake rooms_deamon:start RAILS_ENV=production
+    }
   end
 
   desc "Stop the Thin processes"
   task :stop do
-    run <<-CMD
-      cd #{current_path}; bundle exec thin stop -C config/thin.yml
-    CMD
+    run %{
+      cd #{current_path};
+      bundle exec thin stop -C config/thin.yml;
+      bundle exec rake rooms_deamon:stop RAILS_ENV=production
+    }
   end
 
   desc "Restart the Thin processes"
   task :restart do
-    run <<-CMD
-      cd #{current_path}; bundle exec thin restart -C config/thin.yml
-    CMD
+    run %{
+      cd #{current_path};
+      bundle exec thin restart -C config/thin.yml;
+      bundle exec rake rooms_deamon:stop RAILS_ENV=production;
+      bundle exec rake rooms_deamon:start RAILS_ENV=production
+    }
   end
 
   #desc "Create a symlink from the public/cvs folder to the shared/system/cvs folder"
