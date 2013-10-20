@@ -14,6 +14,8 @@ en:
       leave: Leave
     current_question:
       chars: "%{count} chars"
+    chatlog:
+      winner: Winner
 
   users:
     guest_prefix: guest

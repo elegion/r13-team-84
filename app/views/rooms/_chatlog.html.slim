@@ -7,5 +7,6 @@
 
     - if room_question.winner_id?
       p
-        strong Winner:
+        strong #{t('.winner')}:
+        '
         = room_question.winner.name

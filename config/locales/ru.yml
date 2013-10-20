@@ -17,6 +17,8 @@ ru:
         one: "%{count} буква"
         few: "%{count} буквы"
         many: "%{count} букв"
+    chatlog:
+      winner: Победитель
 
   users:
     guest_prefix: гость
