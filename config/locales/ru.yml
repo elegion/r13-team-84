@@ -21,6 +21,7 @@ ru:
     show:
       leave: Выйти
       questions_over: "Вопросы закончились"
+      play_user_join_sound: "звуковой сигнал о новом пользователе"
     current_question:
       chars:
         one: "%{count} буква"

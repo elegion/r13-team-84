@@ -28,3 +28,8 @@ section.js-room-container.container data-room-id=@room.id data-user-id=current_u
         ul.list-unstyled.js-room-users
           - @room.users.sort_by(&:name).each do |user|
             = render 'user', user: user
+        p.user-join-sound
+          label for='user_join_sound_checkbox'
+            input#user_join_sound_checkbox type='checkbox' checked=true
+            '
+            = t('.play_user_join_sound')

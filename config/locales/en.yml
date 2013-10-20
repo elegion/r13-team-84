@@ -21,6 +21,7 @@ en:
     show:
       leave: Leave
       questions_over: "Questions over"
+      play_user_join_sound: "play sound when user joins"
     current_question:
       chars: "%{count} chars"
     chatlog:

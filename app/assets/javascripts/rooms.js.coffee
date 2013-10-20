@@ -74,6 +74,7 @@ class CurrentQuestionHint
 class Users
   constructor: (@room_id, @container) ->
     @_subscribeChannels()
+    $(document.body).append('<audio id="new_user_sound" style="display:none;"><source src="/audio/beep.ogg" type="audio/ogg" /><source src="/audio/beep.mp3" type="audio/mpeg" /></audio>')
 
   _subscribeChannels: =>
     @_subscribeJoin()
@@ -88,10 +89,14 @@ class Users
         first.before(data.html)
       else
         @container.append(data.html)
+      if $('#user_join_sound_checkbox').is(':checked')
+        (new MediaElement('new_user_sound')).play()
 
   _subscribeLeave: =>
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/users/leave", (data) =>
       @container.find("li[data-id=\"#{data.user.id}\"]").remove()
+      if $('#user_join_sound_checkbox').is(':checked')
+        (new MediaElement('new_user_sound')).play()
 
   _subscribeRatings: =>
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/users/ratings", (data) =>

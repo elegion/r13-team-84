@@ -69,3 +69,4 @@ gem 'settingslogic'
 gem 'randumb'  # Fetches random record from database
 gem 'rails-i18n'
 gem 'draper'
+gem 'mediaelement_rails'
