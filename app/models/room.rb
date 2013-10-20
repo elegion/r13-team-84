@@ -50,7 +50,8 @@ class Room < ActiveRecord::Base
   protected
 
   def next_question
-    Question.where(locale: locale).where.not(id: self.questions).random
+    offset = rand(Question.where(locale: locale).count)
+    Question.where(locale: locale).first(offset: offset)
   end
 
 end
