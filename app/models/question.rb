@@ -7,8 +7,6 @@ class Question < ActiveRecord::Base
 
   validates :text, presence: true, uniqueness: true
 
-  scope :random, -> { order('random()').first }
-
   def valid_answer?(answer)
     self.answers.by_normalized_value(answer).exists?
   end

@@ -65,3 +65,4 @@ gem 'faye'
 gem 'slim-rails'
 gem 'http_accept_language'
 gem 'settingslogic'
+gem 'randumb'  # Fetches random record from database
