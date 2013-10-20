@@ -24,7 +24,7 @@ class RoomsController < ApplicationController
     channel = "/rooms/#{@room.id}/users/#{action_name}"
     faye_client.publish(channel, {
       user: current_user,
-      html: render_to_string('rooms/_room_user', locals: {user: current_user}, layout: false)
+      html: render_to_string('rooms/_user', locals: {user: current_user}, layout: false)
     })
   end
 

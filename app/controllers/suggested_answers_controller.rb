@@ -23,7 +23,7 @@ class SuggestedAnswersController < ApplicationController
   def push_message
     channel = "/rooms/#{room_question.room_id}/message"
     data = {
-      html: render_to_string('rooms/_room_message', layout: false,
+      html: render_to_string('rooms/_user_message', layout: false,
                              locals: { suggested_answer: @suggested_answer }),
     }
     faye_client.publish(channel, data)
