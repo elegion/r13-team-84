@@ -7,6 +7,7 @@ QZ.room =
     new Users(@room_id, @container.find('.js-room-users'))
     form = new Form(@room_id, @container.find('.js-room-message-form'))
     new CurrentQuestion(@room_id, @container.find('.js-room-question'), form)
+    new CurrentQuestionHint(@room_id)
 
 
 class ChatLog
@@ -71,6 +72,13 @@ class Form
 
   updateRoomQuestionId: (roomQuestionId) ->
     @form.find('.js-room-question-id').val()
+
+class CurrentQuestionHint
+  constructor: (@room_id) ->
+    window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/hint", @updateHint
+
+  updateHint: (data) ->
+    $('.js-hint').text(data.hint)
 
 
 $ -> QZ.room.init()

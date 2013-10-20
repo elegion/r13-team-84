@@ -22,7 +22,7 @@ class RoomsDeamon::RoomWatcher
   end
 
   def questions_channel
-    "/rooms/#{room.id}/questions"
+    "/rooms/#{room.id}/question"
   end
 
 protected
@@ -44,11 +44,11 @@ protected
   end
 
   def hint_channel
-    "/rooms/#{room.id}/message"
+    "/rooms/#{room.id}/hint"
   end
 
   def publish_hint(hint)
-    faye_client.publish(hint_channel, user: hint_user, message: hint)
+    faye_client.publish(hint_channel, hint: hint)
   end
 
   def first_hint
@@ -60,7 +60,8 @@ protected
   end
 
   def next_question
-    room.next_room_question
-    faye_client.publish(questions_channel, nil)
+    room_question = room.next_room_question
+    data = room_question.decorate.faye_hash
+    faye_client.publish(questions_channel, data)
   end
 end
