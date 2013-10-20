@@ -6,7 +6,4 @@
       = render 'user_message', suggested_answer: suggested_answer
 
     - if room_question.winner_id?
-      p
-        strong #{t('.winner')}:
-        '
-        span class=color_class(room_question.winner.id) = room_question.winner.name
+      = render 'winner', user: room_question.winner
