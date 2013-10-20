@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
-    redirect_to home_path unless @room.users.include? current_user
+    current_user.join(@room) unless @room.users.include?(current_user)
   end
 
   def join
