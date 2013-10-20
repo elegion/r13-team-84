@@ -53,7 +53,7 @@ class ChatLog
     @container.stop(true).animate(scrollTop: @container.prop('scrollHeight'))
 
   newQuestion: (data) ->
-    @addRawMessage(data.html)
+    @addRawMessage(data.chat_html)
 
 
 class CurrentQuestion

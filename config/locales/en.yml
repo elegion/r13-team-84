@@ -24,9 +24,16 @@ en:
       chars: "%{count} chars"
     chatlog:
       winner: Winner
+      question: "Question"
     suggested_answer_form:
       submit: Submit
 
+    winner:
+      winner: "Winner"
+      correct_answer: "Correct answer"
+      answered_by: "Answered by"
+    chat_question:
+      question: "Question"
   users:
     guest_prefix: guest
     rating: rating

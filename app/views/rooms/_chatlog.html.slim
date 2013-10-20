@@ -1,9 +1,8 @@
 - room.room_questions.each do |room_question|
   article
-    h3 = room_question.question.text
+    = render 'chat_question', question: room_question.question
 
     - room_question.suggested_answers.each do |suggested_answer|
       = render 'user_message', suggested_answer: suggested_answer
-
-    - if room_question.winner_id?
-      = render 'winner', user: room_question.winner
+      - if suggested_answer.is_valid
+        = render 'winner', user: suggested_answer.user, suggested_answer: suggested_answer

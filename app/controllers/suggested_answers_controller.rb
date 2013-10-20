@@ -31,7 +31,7 @@ class SuggestedAnswersController < ApplicationController
   def push_winner
     channel = "/rooms/#{room_question.room_id}/message"
     html = render_to_string('rooms/_winner', layout: false,
-                            locals: { user: current_user })
+                            locals: { user: current_user, suggested_answer: @suggested_answer })
     faye_client.publish(channel, html: html)
   end
 

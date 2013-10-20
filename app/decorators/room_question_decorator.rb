@@ -5,6 +5,7 @@ class RoomQuestionDecorator < Draper::Decorator
     locale = object.room.locale
     {
       html: h.render('rooms/current_question', question: object.question),
+      chat_html: h.render('rooms/chat_question', question: object.question),
       room_question_id: object.id,
     }
   end

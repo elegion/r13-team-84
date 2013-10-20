@@ -1,6 +1,10 @@
 .room-chat {
   height: 500px;
   overflow-y: scroll;
+
+  .system-message {
+    color:  #999999;
+  }
 }
 
 .nickname-color-1 {

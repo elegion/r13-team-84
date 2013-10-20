@@ -1,4 +1,8 @@
-p
-  strong #{t('.winner')}:
+p.system-message
+  | #{t('.correct_answer')}:
+  '
+  strong #{suggested_answer.value}.
+  '
+  | #{t('.answered_by')}:
   '
   span class=color_class(user.id) = user.name

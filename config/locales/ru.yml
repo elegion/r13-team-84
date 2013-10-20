@@ -27,9 +27,16 @@ ru:
         many: "%{count} букв"
     chatlog:
       winner: Победитель
+      question: "Вопрос"
     suggested_answer_form:
       submit: Отправить
 
+    winner:
+      winner: "Победитель"
+      correct_answer: "Правильный ответ"
+      answered_by: "Ответил"
+    chat_question:
+      question: "Вопрос"
   users:
     guest_prefix: гость
     rating: рейтинг
