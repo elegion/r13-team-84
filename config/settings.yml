@@ -13,6 +13,8 @@ defaults: &defaults
 
 development:
   <<: *defaults
+  rooms_deamon:
+    faye_url: 'http://localhost:3000/faye'
 
 test:
   <<: *defaults
@@ -28,3 +30,5 @@ production:
   vkontakte: # https://vk.com/editapp?id=3943024
     key: '3943024'
     secret: 'DfuMNsmVdqIZq9urzr5d'
+  rooms_deamon:
+    faye_url: 'http://localhost/faye'
