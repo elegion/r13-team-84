@@ -33,4 +33,21 @@ class DailyStatistics < ActiveRecord::Base
         correct_answers: DailyStatistics.where(locale: locale, stats_date: date).order('correct_answers DESC'),
     }
   end
+
+  def self.stats_for_range(locale, from, to)
+    {
+        fastest_answer: DailyStatistics
+          .where(locale: locale).where('stats_date >= ?', from).where('stats_date <= ?', to)
+          .select("#{DailyStatistics.table_name}.*, MIN(fastest_answer) AS fa")
+          .order('fastest_answer ASC').group(:user_id),
+        answers_in_a_row: DailyStatistics
+          .where(locale: locale).where('stats_date >= ?', from).where('stats_date <= ?', to)
+          .select("#{DailyStatistics.table_name}.*, MAX(answers_in_a_row) AS answers_in_a_row")
+          .order('answers_in_a_row DESC').group(:user_id),
+        correct_answers: DailyStatistics
+          .where(locale: locale).where('stats_date >= ?', from).where('stats_date <= ?', to)
+          .select("#{DailyStatistics.table_name}.*, SUM(correct_answers) AS correct_answers, SUM(correct_answers) AS correct_answers_sum")
+          .order('correct_answers_sum DESC').group(:user_id),
+    }
+  end
 end

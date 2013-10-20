@@ -71,25 +71,72 @@ describe DailyStatistics do
       end
     end
 
-    context 'when there are stats' do
-      it 'should return fastest_answer' do
-        s1 = create(:daily_statistics, fastest_answer: 1.2)
-        s2 = create(:daily_statistics, fastest_answer: 1.1)
-        create(:daily_statistics, fastest_answer: 0.1, stats_date: Date.yesterday)
-        DailyStatistics.stats_for_date('ru', Date.today)[:fastest_answer].should eq([s2, s1])
+    it 'should return fastest_answer' do
+      s1 = create(:daily_statistics, fastest_answer: 1.2)
+      s2 = create(:daily_statistics, fastest_answer: 1.1)
+      create(:daily_statistics, fastest_answer: 0.1, stats_date: Date.yesterday)
+      DailyStatistics.stats_for_date('ru', Date.today)[:fastest_answer].should eq([s2, s1])
+    end
+    it 'should return answers_in_a_row' do
+      s1 = create(:daily_statistics, answers_in_a_row: 6)
+      s2 = create(:daily_statistics, answers_in_a_row: 5)
+      create(:daily_statistics, answers_in_a_row: 10, stats_date: Date.yesterday)
+      DailyStatistics.stats_for_date('ru', Date.today)[:answers_in_a_row].should eq([s1, s2])
+    end
+    it 'should return correct_answers' do
+      s1 = create(:daily_statistics, correct_answers: 10)
+      s2 = create(:daily_statistics, correct_answers: 100)
+      create(:daily_statistics, correct_answers: 1, stats_date: Date.tomorrow)
+      DailyStatistics.stats_for_date('ru', Date.today)[:correct_answers].should eq([s2, s1])
+    end
+  end
+
+  describe '#stats_for_range' do
+    context 'when there are no stats' do
+      it 'should return empty querysets' do
+        res = DailyStatistics.stats_for_range('ru', Date.yesterday, Date.today)
+        res[:fastest_answer].should be_empty
+        res[:answers_in_a_row].should be_empty
+        res[:correct_answers].reorder('').should be_empty
       end
-      it 'should return answers_in_a_row' do
-        s1 = create(:daily_statistics, answers_in_a_row: 6)
-        s2 = create(:daily_statistics, answers_in_a_row: 5)
-        create(:daily_statistics, answers_in_a_row: 10, stats_date: Date.yesterday)
-        DailyStatistics.stats_for_date('ru', Date.today)[:answers_in_a_row].should eq([s1, s2])
-      end
-      it 'should return correct_answers' do
-        s1 = create(:daily_statistics, correct_answers: 10)
-        s2 = create(:daily_statistics, correct_answers: 100)
-        create(:daily_statistics, correct_answers: 1, stats_date: Date.yesterday)
-        DailyStatistics.stats_for_date('ru', Date.today)[:correct_answers].should eq([s2, s1])
-      end
+    end
+
+    let(:u1) { create(:user) }
+    let(:u2) { create(:user) }
+    let(:u3) { create(:user) }
+    it 'should return fastest_answer' do
+      u1_s1 = create(:daily_statistics, user: u1, fastest_answer: 1.2, stats_date: Date.yesterday)
+      u1_s2 = create(:daily_statistics, user: u1, fastest_answer: 0.5, stats_date: Date.tomorrow)
+      u1_s3 = create(:daily_statistics, user: u1, fastest_answer: 0.1, stats_date: Date.today)
+      u1_s4 = create(:daily_statistics, user: u1, fastest_answer: 0.1, stats_date: Date.today - 7.days)
+      u2_s1 = create(:daily_statistics, user: u2, fastest_answer: 2.2, stats_date: Date.today)
+      u2_s2 = create(:daily_statistics, user: u2, fastest_answer: 5.2, stats_date: Date.yesterday)
+      u3_s1 = create(:daily_statistics, user: u3, fastest_answer: 0.1, stats_date: Date.today - 7.days)
+      DailyStatistics.stats_for_range('ru', Date.yesterday, Date.today)[:fastest_answer].should eq([u1_s3, u2_s1])
+    end
+    it 'should return answers_in_a_row' do
+      u1_s1 = create(:daily_statistics, user: u1, answers_in_a_row: 5,   stats_date: Date.yesterday)
+      u1_s2 = create(:daily_statistics, user: u1, answers_in_a_row: 25,  stats_date: Date.tomorrow)
+      u1_s3 = create(:daily_statistics, user: u1, answers_in_a_row: 10,  stats_date: Date.today)
+      u1_s4 = create(:daily_statistics, user: u1, answers_in_a_row: 105, stats_date: Date.today - 7.days)
+      u2_s1 = create(:daily_statistics, user: u2, answers_in_a_row: 7,   stats_date: Date.today)
+      u2_s2 = create(:daily_statistics, user: u2, answers_in_a_row: 17,  stats_date: Date.yesterday)
+      u3_s1 = create(:daily_statistics, user: u3, answers_in_a_row: 200, stats_date: Date.today - 7.days)
+      DailyStatistics.stats_for_range('ru', Date.yesterday, Date.today)[:answers_in_a_row].should eq([u2_s2, u1_s3])
+    end
+    it 'should return correct_answers' do
+      u1_s1 = create(:daily_statistics, user: u1, correct_answers: 1, stats_date: Date.yesterday)
+      u1_s2 = create(:daily_statistics, user: u1, correct_answers: 7, stats_date: Date.tomorrow)
+      u1_s3 = create(:daily_statistics, user: u1, correct_answers: 25, stats_date: Date.today)
+      u1_s4 = create(:daily_statistics, user: u1, correct_answers: 12, stats_date: Date.today - 7.days)
+      u2_s1 = create(:daily_statistics, user: u2, correct_answers: 17, stats_date: Date.today)
+      u2_s2 = create(:daily_statistics, user: u2, correct_answers: 14, stats_date: Date.yesterday)
+      u3_s1 = create(:daily_statistics, user: u3, correct_answers: 1, stats_date: Date.today - 7.days)
+      correct_answers = DailyStatistics.stats_for_range('ru', Date.yesterday, Date.today)[:correct_answers]
+      correct_answers[0].user_id.should eql(u2.id)
+      correct_answers[0].correct_answers.should eql(17+14)
+      correct_answers[1].user_id.should eql(u1.id)
+      correct_answers[1].correct_answers.should eql(1+25)
     end
   end
 end
