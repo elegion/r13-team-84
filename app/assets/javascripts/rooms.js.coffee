@@ -50,6 +50,7 @@ class Users
   _subscribeChannels: =>
     @_subscribeJoin()
     @_subscribeLeave()
+    @_subscribeRatings()
 
   _subscribeJoin: =>
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/users/join", (data) =>
@@ -64,6 +65,13 @@ class Users
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/users/leave", (data) =>
       @container.find("li[data-id=\"#{data.user.id}\"]").remove()
 
+  _subscribeRatings: =>
+    window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/users/ratings", (data) =>
+      for user in data.users
+        $user = @container.find("li[data-id=\"#{user.id}\"]")
+        $rating = $user.find('.js-user-rating')
+        rating = Math.round(user.rating * 10) / 10
+        $rating.html("(#{rating})")
 
 class Form
   constructor: (@room_id, @form) ->

@@ -32,14 +32,17 @@ class SuggestedAnswersController < ApplicationController
   end
 
   def push_question
-    channel = "/rooms/#{@room_question.room_id}/question"
     room = @room_question.room
-    data = {
-      html: render_to_string('rooms/_room_question', layout: false,
-                             locals: { room: room }),
-      form_url: polymorphic_path([room.last_room_question, SuggestedAnswer.new]),
-    }
-    faye_client.publish(channel, data)
+    if @suggested_answer.is_valid?
+      faye_client.publish("/rooms/#{room.id}/question", {
+          html: render_to_string('rooms/_room_question', layout: false,
+                                 locals: { room: room }),
+          form_url: polymorphic_path([room.last_room_question, SuggestedAnswer.new]),
+      })
+      faye_client.publish("/rooms/#{room.id}/users/ratings", {
+          users: room.users
+      })
+    end
   end
 
 end
