@@ -42,7 +42,7 @@ class Room < ActiveRecord::Base
   protected
 
   def next_question
-    Question.where.not(id: self.questions).random
+    Question.where(locale: locale).where.not(id: self.questions).random
   end
 
 end
