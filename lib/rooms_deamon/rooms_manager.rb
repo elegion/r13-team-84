@@ -8,14 +8,27 @@ class RoomsDeamon::RoomsManager
   end
 
   def push_room(room)
-    room_watcher = RoomWatcher.new(room, faye_client)
-    room_hash[room.id] = room_watcher
+    logger.debug [:push_room, room]
 
-    faye_client.subscribe(room_watcher.questions_channel) do |message|
-      room_watcher.update_room_question
+    unless room_hash.key?(room.id) 
+      room_watcher = RoomWatcher.new(room, faye_client)
+      room_hash[room.id] = room_watcher
+
+      faye_client.subscribe(room_watcher.questions_channel) do |message|
+        logger.debug [ :message, room_watcher.questions_channel, message ]
+        room_watcher.update_room_question
+      end
+
+      # TODO: Watch new rooms
     end
+  rescue => error
+    logger.error error
+  end
 
-    # TODO: Watch new rooms
+protected
+
+  def logger
+    Rails.logger
   end
 
 end

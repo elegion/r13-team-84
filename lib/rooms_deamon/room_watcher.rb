@@ -19,6 +19,8 @@ class RoomsDeamon::RoomWatcher
     if @current_room_question = room.reload.last_room_question
       self.start_timers
     end
+  rescue => error
+    logger.error(error)
   end
 
   def questions_channel
@@ -48,7 +50,11 @@ protected
   end
 
   def publish_hint(hint)
-    faye_client.publish(hint_channel, hint: hint)
+    data = { hint: hint }
+    logger.debug [ :publish_hint, hint_channel, hint ]
+    faye_client.publish(hint_channel, data)
+  rescue => error
+    logger.error(error)
   end
 
   def first_hint
@@ -63,6 +69,13 @@ protected
     data = if room_question = room.next_room_question
       room_question.decorate.faye_hash
     end
+    logger.debug [ :next_question, questions_channel, data ]
     faye_client.publish(questions_channel, data)
+  rescue => error
+    logger.error(error)
+  end
+
+  def logger
+    Rails.logger
   end
 end

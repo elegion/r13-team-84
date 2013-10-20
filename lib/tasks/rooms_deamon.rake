@@ -1,8 +1,10 @@
 require 'eventmachine'
 require 'faye'
+require 'daemons'
 
 namespace :rooms_deamon do
   task :run => :environment do
+    Rails.logger = Logger.new(Rails.root.join('log/rooms_deamon.log'))
     EventMachine.run do
       # Control + C for stop
       Signal.trap("INT")  { EventMachine.stop }
