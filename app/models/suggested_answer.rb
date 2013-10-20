@@ -13,6 +13,7 @@ class SuggestedAnswer < ActiveRecord::Base
   def check_value
     if room_question.question.valid_answer?(self.value)
       room_question.update_attributes(winner_id: self.user_id)
+      Rating::update_ratings(room_question.room.users, self.user)
     end
   end
 
