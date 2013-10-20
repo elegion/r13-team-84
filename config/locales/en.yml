@@ -7,6 +7,10 @@ en:
       sign_in: Log in via
       sign_out: Log out
     stats:
+      stats_by: "Stats"
+      stats_by_day: "by day"
+      stats_by_week: "by week"
+      stats_by_month: "by month"
       correct_answers: "Correct answers"
       fastest_answer: "Fastest answer"
       answers_in_a_row: "Answers in a row"

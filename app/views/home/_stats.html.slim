@@ -1,0 +1,33 @@
+article.col-md-4
+  h2
+    i.icon.icon-trophy
+    '
+    | #{t('home.stats.correct_answers')}
+  ul
+    - stats[:correct_answers].limit(10).each do |stat|
+      li
+        | #{stat.correct_answers}
+        '
+        = render 'users/link_to_user', user: stat.user
+article.col-md-4
+  h2
+    i.icon.icon-bolt
+    '
+    | #{t('home.stats.fastest_answer')}
+  ul
+    - stats[:fastest_answer].limit(10).each do |stat|
+      li
+        | #{stat.fastest_answer.round(2)}
+        '
+        = render 'users/link_to_user', user: stat.user
+article.col-md-4
+  h2
+    i.icon.icon-check
+    '
+    | #{t('home.stats.answers_in_a_row')}
+  ul
+    - stats[:answers_in_a_row].limit(10).each do |stat|
+      li
+        | #{stat.answers_in_a_row}
+        '
+        = render 'users/link_to_user', user: stat.user

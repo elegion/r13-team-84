@@ -107,6 +107,18 @@
   }
 }
 
+// Stats
+
+.stats-heading {
+  a.current {
+    color: inherit;
+  }
+  a.current:hover, a.current:active {
+    color: inherit;
+    text-decoration: none;
+    cursor: default;
+  }
+}
 .no_stats {
   text-align: center;
 }
