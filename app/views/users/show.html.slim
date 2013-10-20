@@ -4,9 +4,13 @@ section.user-profile
   .user-profile-info
     h2.user-profile-name= @user.name
     h3.user-profile-rating #{t('users.rating')}: #{@user.rating.round(2)}
+  h3 = t('.stats_for_en')
   - if @user_stats[:en]
-    h3 = t('.stats_for_en')
     = render 'user_stats', stats: @user_stats[:en]
+  - else
+    small = t('.no_stats_yet')
+  h3 = t('.stats_for_ru')
   - if @user_stats[:ru]
-    h3 = t('.stats_for_ru')
     = render 'user_stats', stats: @user_stats[:ru]
+  - else
+    small = t('.no_stats_yet')

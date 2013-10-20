@@ -42,9 +42,11 @@ en:
       fastest_answer: "Fastest answer"
       seconds: "seconds"
       answers_in_a_row: "Answers in a row"
+      correct_answers: "Correct answers"
     show:
       stats_for_en: "Statistics for english questions"
       stats_for_ru: "Stats for russian questions"
+      no_stats_yet: "No statistics yet. Answer some quiz questions first."
   sessions:
     signout:
       sign_out: Sign out

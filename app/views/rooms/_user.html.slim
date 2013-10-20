@@ -1,7 +1,4 @@
 li data-id= user.id data-name= user.name
-  - if user.guest?
-    span class=color_class(user.id) = user.name
-  - else
-    = link_to user.name, user, class: "js-user-link #{color_class(user.id)}"
+  = link_to user.name, user, class: "js-user-link #{color_class(user.id)}"
   '
   span.js-user-rating.rating title=t('users.rating') (#{user.rating.round(1)})
