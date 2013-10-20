@@ -4,11 +4,15 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
-    current_user.join(@room) unless @room.users.include?(current_user)
+    if !@room.users.include?(current_user)
+      _push_room_user_action(@room, 'join')
+      current_user.join(@room)
+    end
   end
 
   def join
     @room = Room.first_not_full
+    _push_room_user_action(current_user.room, 'leave') if current_user.room
     current_user.join @room
     redirect_to @room
   end
@@ -21,7 +25,11 @@ class RoomsController < ApplicationController
   private
 
   def push_room_user_action
-    channel = "/rooms/#{@room.id}/users/#{action_name}"
+    _push_room_user_action(@room, action_name)
+  end
+
+  def _push_room_user_action(room, action)
+    channel = "/rooms/#{room.id}/users/#{action}"
     faye_client.publish(channel, {
       user: current_user,
       html: render_to_string('rooms/_user', locals: {user: current_user}, layout: false)

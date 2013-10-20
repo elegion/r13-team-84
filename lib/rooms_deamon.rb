@@ -11,7 +11,7 @@ class RoomsDeamon
 
   def start
     start_daemon_if_background
-    logger.debug("EM.run"); 
+    logger.debug("EM.run")
     EM.run do
 
       EM.error_handler { |error| logger.error(error) }
@@ -21,9 +21,10 @@ class RoomsDeamon
       Signal.trap("TERM") { EM.stop }
 
       Room.find_each { |room| rooms_deamon.push_room(room) }
+      @user_manager ||= RoomsDeamon::UserManager.new(faye_client)
 
     end #EventMachine.run
-    logger.debug('EM.stop'); 
+    logger.debug('EM.stop')
     end_daemon_if_background
   end
 

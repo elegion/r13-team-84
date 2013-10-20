@@ -3,18 +3,16 @@ class FayeExtension
   def incoming(message, callback)
     p message
     callback.call(message)
-    # case message["channel"]
-    # when "/meta/subscribe"
-    #   subscribe(message['subscription'])
-    # end
+    case message["channel"]
+    when "/heartbeat"
+      heartbeat(message["data"])
+    end
   end
 
-private
+  private
 
-  # def subscribe(subscription)
-  #   if %r{/rooms/(?<room_id>\d+)} =~ subscription
-  #     room_timers[room_id]
-  #   end
-  # end
+  def heartbeat(data)
+    User.find_by_id(data["user_id"]).try(:heartbeat)
+  end
 
 end
