@@ -1,4 +1,4 @@
-- room.room_questions.each do |room_question|
+- room.room_questions.last(10).each do |room_question|
   article
     = render 'chat_question', question: room_question.question
 
