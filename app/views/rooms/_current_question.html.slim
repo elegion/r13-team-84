@@ -2,4 +2,4 @@ article.current-question
   h3 = question.text
   p
     strong.js-hint = '*' * question.answer.length
-    |  (#{t('.chars', count: question.answer.length)})
+    |  (#{t('.chars', count: question.answer.length, locale: question.locale)})
