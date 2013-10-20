@@ -19,6 +19,13 @@ class SuggestedAnswer < ActiveRecord::Base
     if self.is_valid?
       room_question.update_attributes(winner_id: self.user_id)
       Rating::update_ratings(room_question.room.users, self.user)
+      answer_time = Time.now - room_question.created_at
+      answers_in_a_row = 0
+      for q in room_question.room.room_questions.order('created_at DESC').offset(1)
+        break if q.winner_id != self.user_id
+        answers_in_a_row += 1
+      end
+      DailyStatistics.update_for_user(self.user, room_question.room.locale, answer_time, answers_in_a_row)
     end
   end
 
