@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 
   def callback
-    user = User.from_omniauth(auth_hash)
+    user = current_user.authentificate(auth_hash)
     session[:user_id] = user.id
     redirect_to(request.env['omniauth.origin'] || home_url)
   end
