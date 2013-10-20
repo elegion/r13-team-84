@@ -6,10 +6,7 @@
       = room_question.question.answers.pluck(:value).join(', ')
 
     - room_question.suggested_answers.each do |suggested_answer|
-      p
-        strong #{suggested_answer.user.name}:
-        '
-        = suggested_answer.value
+      = render 'room_message', suggested_answer: suggested_answer
 
     - if room_question.winner_id?
       p

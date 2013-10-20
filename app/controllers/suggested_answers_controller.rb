@@ -25,8 +25,7 @@ protected
   def push_room_questions
     channel = "/rooms/#{@room_question.room_id}/message"
     data = {
-        user: current_user.name,
-        message: @suggested_answer.value
+        html: render_to_string('rooms/_room_message', locals: {suggested_answer: @suggested_answer}, layout: false)
     }
     faye_client.publish(channel, data)
   end

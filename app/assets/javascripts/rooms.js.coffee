@@ -13,15 +13,11 @@ QZ.room.chat =
 
   _onChatScroll: (event) ->
 
-
-  _addRawMessage: (html, klass) ->
+  addRawMessage: (html) ->
     $chat = $('.js-room-chat')
-    $row = $("<p class='message #{klass}'>#{html}</p>")
+    $row = $(html)
     $row.appendTo($chat).hide().fadeIn()
     $chat.stop(true, false).animate({scrollTop: $chat.prop('scrollHeight')})
-
-  addUserMessage: (user, message, klass) ->
-    QZ.room.chat._addRawMessage("<strong>#{user}: </strong><span>#{message}</span>", klass)
 
 
 class Users
@@ -50,7 +46,7 @@ $ ->
   if room_id = $('.js-room-id').data('roomId')
     QZ.room.init()
     window.FAYE_CLIENT.subscribe "/rooms/#{room_id}/message", (data) ->
-      QZ.room.chat.addUserMessage(data.user, data.message, '')
+      QZ.room.chat.addRawMessage(data.html)
 
     new Users(room_id, $(".js-room-users"))
 
