@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 
   belongs_to :room, counter_cache: true
   has_many :suggested_answers, dependent: :destroy
+  has_many :daily_statisticses, dependent: :destroy
   after_initialize :init
 
   def authentificate(auth_hash)
