@@ -52,11 +52,13 @@ a {
 .languages {
   position: absolute;
   top: 8px;
-  right: 16px;
+  right: 8px;
 }
 .languages-list {
   list-style: none;
   line-height: 0;
+  margin: 0;
+  padding: 0;
 
   @mixin lang($lng) {
     &.#{$lng} {
@@ -66,7 +68,7 @@ a {
 
   li {
     display: inline-block;
-    margin: 0 0.1em;
+    margin: 0 8px;
   }
   i {
     display: block;
@@ -82,8 +84,9 @@ a {
 
 .authbox {
   position: absolute;
-  top: 52px;
-  right: 16px;
+  top: 64px;
+  right: 8px;
+  width: 170px;
   text-align: center;
 
   .expander {
