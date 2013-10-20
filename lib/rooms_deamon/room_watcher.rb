@@ -60,8 +60,9 @@ protected
   end
 
   def next_question
-    room_question = room.next_room_question
-    data = room_question.decorate.faye_hash
-    faye_client.publish(questions_channel, data)
+    if room_question = room.next_room_question
+      data = room_question.decorate.faye_hash
+      faye_client.publish(questions_channel, data)
+    end
   end
 end
