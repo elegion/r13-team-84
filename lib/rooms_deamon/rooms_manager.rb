@@ -36,6 +36,10 @@ class RoomsDeamon::RoomsManager
     end
   end
 
+  def push_rooms
+    Room.find_each { |room| push_room(room) }
+  end
+
 protected
 
   def logger

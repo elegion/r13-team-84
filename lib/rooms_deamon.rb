@@ -20,8 +20,7 @@ class RoomsDeamon
       Signal.trap("INT")  { EM.stop }
       Signal.trap("TERM") { EM.stop }
 
-      Room.find_each { |room| rooms_deamon.push_room(room) }
-
+      rooms_deamon.push_rooms
       rooms_deamon.search_new_rooms
 
     end #EventMachine.run
