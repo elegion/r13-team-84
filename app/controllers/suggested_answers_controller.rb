@@ -12,7 +12,7 @@ class SuggestedAnswersController < ApplicationController
     end
   end
 
-protected
+  protected
 
   def load_room_question
     @room_question = RoomQuestion.find(params[:room_question_id])
@@ -25,9 +25,9 @@ protected
   def push_room_questions
     channel = "/rooms/#{@room_question.room_id}/message"
     data = {
-        html: render_to_string('rooms/_room_message', locals: {suggested_answer: @suggested_answer}, layout: false)
+      html: render_to_string('rooms/_room_message', locals: {suggested_answer: @suggested_answer}, layout: false)
     }
     faye_client.publish(channel, data)
   end
-  
+
 end
