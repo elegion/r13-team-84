@@ -12,8 +12,8 @@ ru:
   rooms:
     prefix: Комната
     show:
-      submit: Отправить
       leave: Выйти
+      questions_over: "Вопросы закончились"
     current_question:
       chars:
         one: "%{count} буква"
@@ -21,6 +21,8 @@ ru:
         many: "%{count} букв"
     chatlog:
       winner: Победитель
+    suggested_answer_form:
+      submit: Отправить
 
   users:
     guest_prefix: гость

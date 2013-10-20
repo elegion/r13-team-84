@@ -39,6 +39,10 @@ class Room < ActiveRecord::Base
     )
   end
 
+  def questions_over?
+    last_room_question.winner_id?
+  end
+
   protected
 
   def next_question

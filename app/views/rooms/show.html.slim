@@ -6,16 +6,13 @@ section.js-room-container.container data-room-id=@room.id
   .col-xs-12.col-sm-9
     .well.room-chat.js-room-chatlog
       = render 'chatlog', room: @room
-    .well.room-question.js-room-question
-      = render 'current_question', question: @room.last_room_question.question
-    .well
-      = form_for @room.last_room_question.suggested_answers.build, remote: true, html: {class: 'js-room-message-form'} do |f|
-        = f.hidden_field :room_question_id, class: 'js-room-question-id'
-        .input-group
-          span.input-group-addon class="#{color_class(current_user.id)}" = current_user.name
-          = f.text_field :value, autofocus: true, class: 'js-room-message-form-message form-control'
-          span.input-group-btn
-            = f.submit t('.submit'), class: "btn btn-success"
+    - unless @room.questions_over?
+      .well.room-question.js-room-question
+        = render 'current_question', question: @room.last_room_question.question
+      .well.js-suggested-answer-form
+        = render 'suggested_answer_form'
+    .well.js-questions-over class=('hide' unless @room.questions_over?)
+      = t('.questions_over')
 
 
   .col-xs-6.col-sm-3.sidebar-offcanvas

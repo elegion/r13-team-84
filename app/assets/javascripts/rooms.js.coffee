@@ -8,14 +8,16 @@ QZ.room =
     @form = new Form(@room_id, @container.find('.js-room-message-form'))
     @question = new CurrentQuestion(@room_id, @container.find('.js-room-question'))
     @hint = new CurrentQuestionHint(@room_id)
+    @questions_over = new QuestionsOver(@container)
     @_subscribe()
 
   _subscribe: ->
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/question", (data) =>
-      @chatlog.newQuestion(data)
-      @question.update(data)
-      @form.updateRoomQuestionId(data.room_question_id)
-
+      @questions_over.toggle(!!data)
+      if data
+        @chatlog.newQuestion(data)
+        @question.update(data)
+        @form.updateRoomQuestionId(data.room_question_id)
 
 class ChatLog
   constructor: (@room_id, @container) ->
@@ -104,6 +106,17 @@ class Form
 
   updateRoomQuestionId: (roomQuestionId) ->
     @form.find('.js-room-question-id').val()
+
+class QuestionsOver
+  constructor: (container) ->
+    @suggestedAnswerForm = container.find('.js-suggested-answer-form')
+    @roomQuestion = container.find('.js-room-question')
+    @questionsOver = container.find('.js-questions-over')
+
+  toggle: (form_visible) ->
+    @suggestedAnswerForm.toggleClass('hide', !form_visible)
+    @roomQuestion.toggleClass('hide', !form_visible)
+    @questionsOver.toggleClass('hide', form_visible)
 
 
 $ -> QZ.room.init()

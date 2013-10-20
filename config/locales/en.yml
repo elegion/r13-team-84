@@ -12,12 +12,14 @@ en:
   rooms:
     prefix: Room
     show:
-      submit: Submit
       leave: Leave
+      questions_over: "Questions over"
     current_question:
       chars: "%{count} chars"
     chatlog:
       winner: Winner
+    suggested_answer_form:
+      submit: Submit
 
   users:
     guest_prefix: guest
