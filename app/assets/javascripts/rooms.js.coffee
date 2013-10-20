@@ -32,11 +32,10 @@ class CurrentQuestion
 
   _subscribe: ->
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/question", (data) =>
-      @_update(data.question)
+      @_update(data.html)
 
-  _update: (question) ->
-    console.log(question)
-    @container.find('.js-current-question-text').text(question.text)
+  _update: (html) ->
+    @container.html(html)
 
 
 class Users
