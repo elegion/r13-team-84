@@ -4,8 +4,8 @@
       h1= Quiz
       p= t('.description')
       = button_to t('.play'), join_rooms_path, class: 'btn-play'
+      = render 'authbox'
     = render 'langbox'
-    = render 'authbox'
 
   .container
     h2.stats-heading

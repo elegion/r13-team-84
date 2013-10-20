@@ -4,7 +4,7 @@ en:
       description: Popular retro game from IRC chats on the web
       play: Play
     authbox:
-      sign_in: Log in via
+      sign_in: Don't forget to login if you want to competite in statistics
       sign_out: Log out
     stats:
       stats_by: "Stats"
