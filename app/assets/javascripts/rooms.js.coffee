@@ -36,7 +36,7 @@ class CurrentQuestion
 
   _update: (data) ->
     @container.html(data.html)
-    @form.updateUrl(data.form_url)
+    @form.updateRoomQuestionId(data.room_question_id)
 
 
 class Users
@@ -69,8 +69,8 @@ class Form
       @input.val('')
       true
 
-  updateUrl: (url) ->
-    @form[0].action = url
+  updateRoomQuestionId: (roomQuestionId) ->
+    @form.find('.js-room-question-id').val()
 
 
 $ -> QZ.room.init()

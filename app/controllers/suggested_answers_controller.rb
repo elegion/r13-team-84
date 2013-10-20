@@ -1,29 +1,27 @@
 class SuggestedAnswersController < ApplicationController
 
-  before_action :load_room_question
   after_action :push_message, :push_question
 
   def create
-    @suggested_answer = @room_question.suggested_answers.build(suggested_answer_params)
-    @suggested_answer.save!
+    @suggested_answer = current_user.suggested_answers.create(suggested_answer_params)
     respond_to do |format|
-      format.html { redirect_to @room_question.room }
+      format.html { redirect_to @suggested_answer.room_question.room }
       format.js { head :ok }
     end
   end
 
   protected
 
-  def load_room_question
-    @room_question = RoomQuestion.find(params[:room_question_id])
+  def room_question
+    @suggested_answer.room_question
   end
 
   def suggested_answer_params
-    params.require(:suggested_answer).permit(:value).merge(user_id: current_user.id)
+    params.require(:suggested_answer).permit(:value, :room_question_id)
   end
 
   def push_message
-    channel = "/rooms/#{@room_question.room_id}/message"
+    channel = "/rooms/#{room_question.room_id}/message"
     data = {
       html: render_to_string('rooms/_room_message', layout: false,
                              locals: { suggested_answer: @suggested_answer }),
@@ -33,8 +31,8 @@ class SuggestedAnswersController < ApplicationController
 
   def push_question
     # return if @suggested_answer.room_question == @suggested_answer.room_question.room.last_room_question
-    channel = "/rooms/#{@room_question.room_id}/question"
-    data = @room_question.room.last_room_question.decorate.faye_hash
+    channel = "/rooms/#{room_question.room_id}/question"
+    data = room_question.room.last_room_question.decorate.faye_hash
     faye_client.publish(channel, data)
   end
 

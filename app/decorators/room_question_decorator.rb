@@ -2,9 +2,10 @@ class RoomQuestionDecorator < Draper::Decorator
   delegate_all
 
   def faye_hash
+    locale = object.room.locale
     {
       html: h.render('rooms/room_question', question: object.question),
-      form_url: h.polymorphic_path([ object, SuggestedAnswer.new]),
+      room_question_id: object.id,
     }
   end
 

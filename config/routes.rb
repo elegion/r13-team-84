@@ -10,9 +10,7 @@ Quiz::Application.routes.draw do
       post :leave, on: :collection
     end
 
-    resources :room_questions, only: [ ] do
-      resources :suggested_answers, only: [ :create ]
-    end
+    resources :suggested_answers, only: [ :create ]
 
     resources :users, only: :show
   end

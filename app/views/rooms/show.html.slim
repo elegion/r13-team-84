@@ -9,7 +9,8 @@ section.js-room-container.container data-room-id=@room.id
     .well.room-question.js-room-question
       = render 'room_question', question: @room.last_room_question.question
     .well
-      = form_for [ @room.last_room_question, SuggestedAnswer.new ], remote: true, html: {class: 'js-room-message-form'} do |f|
+      = form_for @room.last_room_question.suggested_answers.build, remote: true, html: {class: 'js-room-message-form'} do |f|
+        = f.hidden_field :room_question_id, class: 'js-room-question-id'
         .input-group
           span.input-group-addon class="#{color_class(current_user.id)}" = current_user.name
           = f.text_field :value, autofocus: true, class: 'js-room-message-form-message form-control'
