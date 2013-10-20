@@ -11,7 +11,7 @@ class RoomsDeamon::RoomsManager
     logger.debug [:push_room, room]
 
     unless room_hash.key?(room.id) 
-      room_watcher = RoomWatcher.new(room, faye_client)
+      room_watcher = ::RoomWatcher.new(room, faye_client)
       room_hash[room.id] = room_watcher
 
       faye_client.subscribe(room_watcher.questions_channel) do |message|

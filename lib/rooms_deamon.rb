@@ -68,7 +68,7 @@ protected
   end
 
   def rooms_deamon
-    @rooms_deamon ||= RoomsDeamon::RoomsManager.new(faye_client)
+    @rooms_deamon ||= ::RoomsManager.new(faye_client)
   end
 
 end
