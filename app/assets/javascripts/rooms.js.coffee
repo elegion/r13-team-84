@@ -70,8 +70,15 @@ class Users
       for user in data.users
         $user = @container.find("li[data-id=\"#{user.id}\"]")
         $rating = $user.find('.js-user-rating')
-        rating = Math.round(user.rating * 10) / 10
-        $rating.html("(#{rating})")
+        @_animateRatingChange($rating, user.rating)
+
+  _animateRatingChange: ($rating, to) =>
+    from = parseFloat($rating.html()[1..-1])
+    $({rating: from}).animate({rating: to},
+      step: ->
+        value = Math.round(@rating * 10) / 10
+        $rating.html("(#{value})")
+    )
 
 class Form
   constructor: (@room_id, @form) ->
