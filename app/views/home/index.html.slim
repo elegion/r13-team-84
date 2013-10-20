@@ -13,9 +13,9 @@
         h2
           i.icon.icon-trophy
           '
-          | #{t('home.correct_answers')}
+          | #{t('home.stats.correct_answers')}
         ul
-          - @correct_answers.limit(10).each do |stat|
+          - @today_stats[:correct_answers].limit(10).each do |stat|
             li
               | #{stat.correct_answers}
               '
@@ -24,9 +24,9 @@
         h2
           i.icon.icon-bolt
           '
-          | #{t('home.fastest_answer')}
+          | #{t('home.stats.fastest_answer')}
         ul
-          - @fastest_answers.limit(10).each do |stat|
+          - @today_stats[:fastest_answer].limit(10).each do |stat|
             li
               | #{stat.fastest_answer.round(2)}
               '
@@ -35,13 +35,15 @@
         h2
           i.icon.icon-check
           '
-          | #{t('home.answers_in_a_row')}
+          | #{t('home.stats.answers_in_a_row')}
         ul
-          - @answers_in_a_row.limit(10).each do |stat|
+          - @today_stats[:answers_in_a_row].limit(10).each do |stat|
             li
               | #{stat.answers_in_a_row}
               '
               = render 'users/link_to_user', user: stat.user
+      - if @today_stats[:correct_answers].count == 0
+        p.no_stats.lead = t('home.stats.no_today')
 
 footer#footer
   .container

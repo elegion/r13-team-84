@@ -25,4 +25,12 @@ class DailyStatistics < ActiveRecord::Base
     stats.save!
     stats
   end
+
+  def self.stats_for_date(locale, date)
+    {
+        fastest_answer: DailyStatistics.where(locale: locale, stats_date: date).order('fastest_answer ASC'),
+        answers_in_a_row: DailyStatistics.where(locale: locale, stats_date: date).order('answers_in_a_row DESC'),
+        correct_answers: DailyStatistics.where(locale: locale, stats_date: date).order('correct_answers DESC'),
+    }
+  end
 end

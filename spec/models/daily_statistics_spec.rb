@@ -60,4 +60,36 @@ describe DailyStatistics do
       end
     end
   end
+
+  describe '#stats_for_date' do
+    context 'when there are no stats' do
+      it 'should return empty querysets' do
+        res = DailyStatistics.stats_for_date('ru', Date.today)
+        res[:fastest_answer].should be_empty
+        res[:answers_in_a_row].should be_empty
+        res[:correct_answers].should be_empty
+      end
+    end
+
+    context 'when there are stats' do
+      it 'should return fastest_answer' do
+        s1 = create(:daily_statistics, fastest_answer: 1.2)
+        s2 = create(:daily_statistics, fastest_answer: 1.1)
+        create(:daily_statistics, fastest_answer: 0.1, stats_date: Date.yesterday)
+        DailyStatistics.stats_for_date('ru', Date.today)[:fastest_answer].should eq([s2, s1])
+      end
+      it 'should return answers_in_a_row' do
+        s1 = create(:daily_statistics, answers_in_a_row: 6)
+        s2 = create(:daily_statistics, answers_in_a_row: 5)
+        create(:daily_statistics, answers_in_a_row: 10, stats_date: Date.yesterday)
+        DailyStatistics.stats_for_date('ru', Date.today)[:answers_in_a_row].should eq([s1, s2])
+      end
+      it 'should return correct_answers' do
+        s1 = create(:daily_statistics, correct_answers: 10)
+        s2 = create(:daily_statistics, correct_answers: 100)
+        create(:daily_statistics, correct_answers: 1, stats_date: Date.yesterday)
+        DailyStatistics.stats_for_date('ru', Date.today)[:correct_answers].should eq([s2, s1])
+      end
+    end
+  end
 end

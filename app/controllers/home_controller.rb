@@ -1,9 +1,7 @@
 class HomeController < ApplicationController
 
   def index
-    @fastest_answers = DailyStatistics.where(locale: locale, stats_date: Date.today).order('fastest_answer DESC')
-    @answers_in_a_row = DailyStatistics.where(locale: locale, stats_date: Date.today).order('answers_in_a_row DESC')
-    @correct_answers = DailyStatistics.where(locale: locale, stats_date: Date.today).order('correct_answers DESC')
+    @today_stats = DailyStatistics.stats_for_date(locale, Date.today)
   end
 
   def default_locale

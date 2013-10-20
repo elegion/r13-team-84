@@ -6,9 +6,11 @@ ru:
     authbox:
       sign_in: Войти
       sign_out: Выйти
-    correct_answers: "Правильных ответов"
-    fastest_answer: "Самый быстрый ответ"
-    answers_in_a_row: "Ответов подряд"
+    stats:
+      correct_answers: "Правильных ответов"
+      fastest_answer: "Самый быстрый ответ"
+      answers_in_a_row: "Ответов подряд"
+      no_today: "На сегодня еще нет статистики."
   rooms:
     prefix: Комната
     show:
