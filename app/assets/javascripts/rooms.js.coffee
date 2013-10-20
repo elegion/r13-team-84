@@ -23,7 +23,7 @@ QZ.room =
 
   _heartbeat: ->
     f = => window.FAYE_CLIENT.publish("/heartbeat", user_id: @user_id)
-    window.setInterval(f, 1000)
+    window.setInterval(f, 15000)
 
 class ChatLog
   constructor: (@room_id, @container) ->
