@@ -1,7 +1,6 @@
 class FayeExtension
 
   def incoming(message, callback)
-    p message
     callback.call(message)
     case message["channel"]
     when "/heartbeat"
