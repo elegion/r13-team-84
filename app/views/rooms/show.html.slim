@@ -21,10 +21,10 @@ section.js-room-container.container data-room-id=@room.id
   .col-xs-6.col-sm-3.sidebar-offcanvas
     .panel.panel-success
       .panel-heading
-        .pull-right
-          = button_to leave_rooms_path, class: 'btn' do
-            = t('.leave')
-        h2 = @room.name
+        h2
+          = @room.name
+          '
+          = link_to "", leave_rooms_path, method: :post, class: 'icon icon-signout', title: t('.leave')
       .panel-body
         ul.list-unstyled.js-room-users
           - @room.users.sort_by(&:name).each do |user|
