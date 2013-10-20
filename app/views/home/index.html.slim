@@ -8,40 +8,25 @@
     = render 'authbox'
 
   .container
-    section.info.row
-      article.col-md-4
-        h2
-          i.icon.icon-trophy
-          '
-          | #{t('home.correct_answers')}
-        ul
-          - @correct_answers.limit(10).each do |stat|
-            li
-              | #{stat.correct_answers}
-              '
-              = render 'users/link_to_user', user: stat.user
-      article.col-md-4
-        h2
-          i.icon.icon-bolt
-          '
-          | #{t('home.fastest_answer')}
-        ul
-          - @fastest_answers.limit(10).each do |stat|
-            li
-              | #{stat.fastest_answer.round(2)}
-              '
-              = render 'users/link_to_user', user: stat.user
-      article.col-md-4
-        h2
-          i.icon.icon-check
-          '
-          | #{t('home.answers_in_a_row')}
-        ul
-          - @answers_in_a_row.limit(10).each do |stat|
-            li
-              | #{stat.answers_in_a_row}
-              '
-              = render 'users/link_to_user', user: stat.user
+    h2.stats-heading
+      = t('home.stats.stats_by')
+      '
+      span.js-stats-current-label = t('home.stats.stats_by_day')
+      '
+      small
+        '(#{link_to t('home.stats.stats_by_day'), '#stats_by_day', class: 'current js-stats-link'}
+        | &nbsp|&nbsp;
+        = link_to t('home.stats.stats_by_week'), '#stats_by_week', class: 'js-stats-link'
+        | &nbsp;|&nbsp;
+        '#{link_to t('home.stats.stats_by_month'), '#stats_by_month', class: 'js-stats-link'} )
+    section.info.row.js-stats-container#stats_by_day
+      = render 'stats', stats: @today_stats
+      - if @today_stats[:correct_answers].count == 0
+        p.no_stats.lead = t('home.stats.no_today')
+    section.info.row.js-stats-container#stats_by_week style='display:none'
+      = render 'stats', stats: @week_stats
+    section.info.row.js-stats-container#stats_by_month style='display:none'
+      = render 'stats', stats: @month_stats
 
 footer#footer
   .container
