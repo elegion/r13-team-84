@@ -7,7 +7,7 @@ section.js-room-container.container data-room-id=@room.id
     .well.room-chat.js-room-chatlog
       = render 'room_questions', room: @room
     .well.room-question.js-room-question
-      = render 'room_question', room: @room
+      = render 'room_question', question: @room.last_room_question.question
     .well
       = form_for [ @room.last_room_question, SuggestedAnswer.new ], remote: true, html: {class: 'js-room-message-form'} do |f|
         .input-group

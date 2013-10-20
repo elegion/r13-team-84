@@ -34,12 +34,7 @@ class SuggestedAnswersController < ApplicationController
   def push_question
     # return if @suggested_answer.room_question == @suggested_answer.room_question.room.last_room_question
     channel = "/rooms/#{@room_question.room_id}/question"
-    room = @room_question.room
-    data = {
-      html: render_to_string('rooms/_room_question', layout: false,
-                             locals: { room: room }),
-      form_url: polymorphic_path([room.last_room_question, SuggestedAnswer.new]),
-    }
+    data = @room_question.room.last_room_question.decorate.faye_hash
     faye_client.publish(channel, data)
   end
 

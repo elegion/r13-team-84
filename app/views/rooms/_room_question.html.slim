@@ -1,2 +1,5 @@
 article.current-question
-  h3= room.last_room_question.question.text
+  h3 = question.text
+  p
+    strong.js-hint = '*' * question.answer.length 
+    |  (#{t('.chars', count: question.answer.length)})

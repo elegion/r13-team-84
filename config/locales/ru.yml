@@ -13,6 +13,12 @@ ru:
       submit: Отправить
       leave: Выйти
 
+    room_question:
+      chars:
+        one: "%{count} буква"
+        few: "%{count} буквы"
+        many: "%{count} букв"
+
   users:
     guest_prefix: гость
 

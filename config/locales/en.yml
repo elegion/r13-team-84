@@ -13,6 +13,9 @@ en:
       submit: Submit
       leave: Leave
 
+    room_question:
+      chars: "%{count} chars"
+
   users:
     guest_prefix: guest
 
