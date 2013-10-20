@@ -3,3 +3,4 @@ section.user-profile
     = avatar(@user)
   .user-profile-info
     h2.user-profile-name= @user.name
+    h3.user-profile-rating #{t('users.rating')}: #{@user.rating.round(2)}

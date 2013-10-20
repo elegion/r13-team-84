@@ -37,6 +37,18 @@ ActiveRecord::Schema.define(version: 20131020110020) do
   add_index "authentications", ["provider", "uid"], name: "index_authentications_on_provider_and_uid", unique: true
   add_index "authentications", ["user_id", "provider"], name: "index_authentications_on_user_id_and_provider", unique: true
 
+  create_table "daily_statistics", force: true do |t|
+    t.integer "user_id"
+    t.string  "locale"
+    t.date    "stats_date"
+    t.float   "fastest_answer"
+    t.integer "answers_in_a_row"
+    t.integer "correct_answers"
+  end
+
+  add_index "daily_statistics", ["locale", "stats_date", "user_id"], name: "index_daily_statistics_on_locale_and_stats_date_and_user_id", unique: true
+  add_index "daily_statistics", ["user_id"], name: "index_daily_statistics_on_user_id"
+
   create_table "question_categories", force: true do |t|
     t.string   "name",       null: false
     t.datetime "created_at"
