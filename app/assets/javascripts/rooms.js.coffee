@@ -29,6 +29,7 @@ class ChatLog
   constructor: (@room_id, @container) ->
     @_subscribe()
     @container.scroll(@_onChatScroll)
+    @_onChatScroll()
     @scrollToBottom()
 
   _subscribe: ->
