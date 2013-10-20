@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require facebox
+//= require mediaelement_rails/rails
 //= require main
 //= require_tree .

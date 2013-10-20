@@ -1,11 +1,10 @@
 .authbox
   - if current_user.guest?
-    .expander
-      p= t(".sign_in")
-      ul.login-providers
-        li= link_to "", signin_path(:facebook), class: 'icon icon-facebook'
-        li= link_to "", signin_path(:twitter), class: 'icon icon-twitter'
-        li= link_to "", signin_path(:vkontakte), class: 'icon icon-vk'
+    p= t('.sign_in')
+    ul.login-providers
+      li= link_to "", signin_path(:facebook), class: 'icon icon-facebook'
+      li= link_to "", signin_path(:twitter), class: 'icon icon-twitter'
+      li= link_to "", signin_path(:vkontakte), class: 'icon icon-vk'
   - else
     = link_to current_user.name, user_path(current_user), class: 'js-user-link'
     '
