@@ -11,31 +11,37 @@
     section.info.row
       article.col-md-4
         h2
-          i.icon.icon-bar-chart
+          i.icon.icon-trophy
           '
-          | foo
+          | #{t('home.correct_answers')}
         ul
-          li foo
-          li bar
-          li baz
+          - @correct_answers.limit(10).each do |stat|
+            li
+              | #{stat.correct_answers}
+              '
+              = render 'users/link_to_user', user: stat.user
       article.col-md-4
         h2
           i.icon.icon-bolt
           '
-          | bar
+          | #{t('home.fastest_answer')}
         ul
-          li foo
-          li bar
-          li baz
+          - @fastest_answers.limit(10).each do |stat|
+            li
+              | #{stat.fastest_answer.round(2)}
+              '
+              = render 'users/link_to_user', user: stat.user
       article.col-md-4
         h2
-          i.icon.icon-code-fork
+          i.icon.icon-check
           '
-          | baz
+          | #{t('home.answers_in_a_row')}
         ul
-          li foo
-          li bar
-          li baz
+          - @answers_in_a_row.limit(10).each do |stat|
+            li
+              | #{stat.answers_in_a_row}
+              '
+              = render 'users/link_to_user', user: stat.user
 
 footer#footer
   .container
