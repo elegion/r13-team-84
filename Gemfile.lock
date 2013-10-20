@@ -63,6 +63,11 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.0.2)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
+      railties (>= 3.0.0)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
     faye (1.0.0)
@@ -227,6 +232,7 @@ DEPENDENCIES
   binding_of_caller
   capistrano (~> 2)
   coffee-rails (~> 4.0.0)
+  factory_girl_rails
   faye
   http_accept_language
   jbuilder (~> 1.2)
