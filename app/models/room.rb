@@ -21,7 +21,11 @@ class Room < ActiveRecord::Base
   end
 
   def self.not_full
-    where('users_count <= ?', ROOM_SIZE)
+    where('users_count < ?', ROOM_SIZE)
+  end
+
+  def self.questions_not_over
+    joins(:room_questions).where(room_questions: {winner_id: nil})
   end
 
   def self.order_by_users_count
@@ -33,7 +37,7 @@ class Room < ActiveRecord::Base
   end
 
   def self.first_not_full
-    by_locale.order_by_users_count.not_full.first_or_create(
+    by_locale.order_by_users_count.not_full.questions_not_over.first_or_create(
       name: "#{I18n.t('rooms.prefix')} #{Room.count + 1}",
       locale: I18n.locale
     )
