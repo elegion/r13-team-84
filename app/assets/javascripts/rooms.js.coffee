@@ -11,8 +11,9 @@ QZ.room =
 
 class ChatLog
   constructor: (@room_id, @container) ->
-    @container.scroll(@_onChatScroll)
     @_subscribe()
+    @scrollToBottom()
+    @container.scroll(@_onChatScroll)
 
   _subscribe: ->
     window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/message", (data) =>
@@ -23,7 +24,10 @@ class ChatLog
   addRawMessage: (html) ->
     $row = $(html)
     $row.appendTo(@container).hide().fadeIn()
-    @container.stop(true, false).animate({scrollTop: @container.prop('scrollHeight')})
+    @scrollToBottom()
+
+  scrollToBottom: ->
+    @container.stop(true).animate(scrollTop: @container.prop('scrollHeight'))
 
 
 class CurrentQuestion
