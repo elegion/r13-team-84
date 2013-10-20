@@ -36,7 +36,6 @@ en:
     chat_question:
       question: "Question"
   users:
-    guest_prefix: guest
     rating: rating
 
     user_stats:

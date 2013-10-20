@@ -39,7 +39,6 @@ ru:
     chat_question:
       question: "Вопрос"
   users:
-    guest_prefix: гость
     rating: рейтинг
 
     user_stats:
