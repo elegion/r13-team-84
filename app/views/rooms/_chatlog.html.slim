@@ -1,9 +1,6 @@
 - room.room_questions.each do |room_question|
   article
     h3 = room_question.question.text
-    p
-      strong Answers:
-      = room_question.question.answers.pluck(:value).join(', ')
 
     - room_question.suggested_answers.each do |suggested_answer|
       = render 'user_message', suggested_answer: suggested_answer
