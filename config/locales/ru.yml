@@ -41,6 +41,14 @@ ru:
     guest_prefix: гость
     rating: рейтинг
 
+    user_stats:
+      fastest_answer: "Самый быстрый ответ"
+      seconds: "секунд"
+      correct_answers: "Правильных ответов"
+      answers_in_a_row: "Ответов подряд"
+    show:
+      stats_for_en: "Статистика для английских вопросов"
+      stats_for_ru: "Статистика для русских вопросов"
   sessions:
     signout:
       sign_out: Выйти
