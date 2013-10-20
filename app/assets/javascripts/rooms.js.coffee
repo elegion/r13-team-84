@@ -26,6 +26,19 @@ class ChatLog
     @container.stop(true, false).animate({scrollTop: @container.prop('scrollHeight')})
 
 
+class CurrentQuestion
+  constructor: (@room_id, @container) ->
+    @_subscribe()
+
+  _subscribe: ->
+    window.FAYE_CLIENT.subscribe "/rooms/#{@room_id}/question", (data) =>
+      @_update(data.question)
+
+  _update: (question) ->
+    console.log(question)
+    @container.find('.js-current-question-text').text(question.text)
+
+
 class Users
   constructor: (@room_id, @container) ->
     @_subscribeChannels()
