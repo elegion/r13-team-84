@@ -112,7 +112,7 @@ class Form
       true
 
   updateRoomQuestionId: (roomQuestionId) ->
-    @form.find('.js-room-question-id').val()
+    @form.find('.js-room-question-id').val(roomQuestionId)
 
 class QuestionsOver
   constructor: (container) ->
