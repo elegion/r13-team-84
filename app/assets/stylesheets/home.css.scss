@@ -1,25 +1,5 @@
 @import "mixins";
 
-.jumbotron {
-  position: relative;
-  padding-top: 64px;
-  background: rgb(238, 238, 238) asset-url("banner.jpg", image);
-  background-size: cover;
-  color: rgb(255, 255, 255);
-  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
-
-  text-align: center;
-
-  h1 {
-    text-transform: uppercase;
-    font-size: 80px;
-  }
-
-}
-
-a {
-}
-
 .btn-play {
   $bg: rgb(255, 118, 51);
 
