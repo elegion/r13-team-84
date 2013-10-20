@@ -1,14 +1,8 @@
 class UsersController < ApplicationController
 
-  before_action :set_user
-
   def show
-    render layout: !request.xhr?
-  end
-
-  private
-  def set_user
     @user = User.find(params[:id])
+    render layout: !request.xhr?
   end
 
 end
