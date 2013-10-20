@@ -32,6 +32,7 @@ class SuggestedAnswersController < ApplicationController
   end
 
   def push_question
+    # return if @suggested_answer.room_question == @suggested_answer.room_question.room.last_room_question
     channel = "/rooms/#{@room_question.room_id}/question"
     room = @room_question.room
     data = {
