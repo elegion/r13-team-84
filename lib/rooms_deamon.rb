@@ -22,6 +22,7 @@ class RoomsDeamon
 
       rooms_deamon.push_rooms
       rooms_deamon.search_new_rooms
+      @user_manager ||= RoomsDeamon::UserManager.new(faye_client)
 
     end #EventMachine.run
     logger.debug('EM.stop')
