@@ -75,6 +75,15 @@ namespace :deploy do
     }
   end
 
+  desc "Restart rooms daemoun"
+  task :restart_daemon do
+    run %{
+	  cd #{current_path};
+      bundle exec rake rooms_deamon:stop RAILS_ENV=production;
+      bundle exec rake rooms_deamon:start RAILS_ENV=production
+	}
+  end
+
   #desc "Create a symlink from the public/cvs folder to the shared/system/cvs folder"
   #task :update_cv_assets, :except => {:no_release => true} do
   #  run <<-CMD
