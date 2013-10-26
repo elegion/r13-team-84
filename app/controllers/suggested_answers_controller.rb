@@ -1,6 +1,6 @@
 class SuggestedAnswersController < ApplicationController
 
-  after_action :push_question, :push_winner, if: proc { @suggested_answer.is_valid? }
+  after_action :push_question, :push_winner, :push_ratings, if: proc { @suggested_answer.is_valid? }
   after_action :push_message
 
   def create
@@ -26,6 +26,13 @@ class SuggestedAnswersController < ApplicationController
     html = render_to_string('rooms/_user_message', layout: false,
                             locals: { suggested_answer: @suggested_answer })
     faye_client.publish(channel, html: html)
+  end
+
+  def push_ratings
+    room = @suggested_answer.room_question.room
+    faye_client.publish("/rooms/#{room.id}/users/ratings", {
+        users: room.users
+    })
   end
 
   def push_winner
