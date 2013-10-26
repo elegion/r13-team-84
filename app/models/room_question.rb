@@ -5,8 +5,6 @@ class RoomQuestion < ActiveRecord::Base
   belongs_to :winner, class_name: 'User'
   has_many :suggested_answers, dependent: :destroy
 
-  validates :question_id, uniqueness: { scope: :room_id }
-
   after_save :next_room_question, if: :winner_id_changed?
 
   protected
